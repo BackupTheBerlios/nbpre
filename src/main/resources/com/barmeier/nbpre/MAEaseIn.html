@@ -1,0 +1,84 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+
+        <div class="sectionTitle">
+					Method Detail
+        </div>
+
+        <div class="FieldNameDetail">
+            <a name=".animateClip"> </a>
+            <div class="fixedFont">
+
+                <span class="light">Mojo.Animation.</span><b>animateClip</b>(element, side, animationType, details)
+            </div>
+
+        </div>
+        <div class="description">
+            <p>This is used to animate the 'clip' style property of DOM elements.
+                Only one side may be animated at a time.
+                Any existing clip animation on the indicated node is cancelled when the new one is applied,
+                and this generally behaves like animateStyle().</p>
+
+            <p>In addition, animateStyle() is used to provide underlying functionality, so it's details are generally supported as well.</p>
+
+            <h4>Example Use:</h4>
+
+            <p>This is used to animate the clipping rectangle for ProgressPill widgets.</p>
+
+            <pre><code>    clipStyleAnimator = Mojo.Animation.animateClip(this.progressDiv, 'left', this.oldWidth, width, 0.2,
+        { clip: {top: 0, left: this.oldWidth, bottom: 12, right: 0}, curve: 'ease-in-out'});
+</code></pre>
+
+            <h4>Animation 'details'</h4>
+
+            <pre><code>    clip    A required hash of numbers indicating current values for clip rect.
+            The indicated side is modified as the animation progresses.
+</code></pre>
+        </div>
+
+
+
+
+        <dl class="detailList">
+            <dt class="heading">Parameters:</dt>
+
+
+            <dt>
+                <span class="light fixedFont">{Object}</span> <b>element</b>
+
+            </dt>
+            <dd>DOM element whose style should be animated.</dd>
+
+            <dt>
+                <span class="light fixedFont">{String}</span> <b>side</b>
+
+
+            </dt>
+            <dd>Which side to animate. top, left, bottom, or right.</dd>
+
+            <dt>
+                <span class="light fixedFont">{String}</span> <b>animationType</b>
+
+            </dt>
+            <dd>Can be linear/bezier/zeno. This determines the speed of the animation at various times.</dd>
+
+
+            <dt>
+                <span class="light fixedFont">{Object}</span> <b>details</b>
+
+            </dt>
+            <dd>Various animation details.  May NOT be undefined, since 'clip' is required (See above description).</dd>
+
+        </dl>
+
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configuration PUBLIC
+    "-//NetBeans IDE//DTD toolbar//EN"
+    "http://www.netbeans.org/dtds/toolbar.dtd">
+<!--
+    Document   : toolbar.xml
+    Created on : 23. Dezember 2009, 23:00
+    Author     : barmeier
+    Description:
+        Purpose of the document follows.
+-->
+
+<Configuration>
+    <Row>
+        <Toolbar name="PalmTools"/>
+    </Row>
+</Configuration>

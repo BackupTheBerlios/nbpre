@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Editors">
+        <folder name="text">
+            <folder name="javascript">
+                <folder name="CompletionProviders">
+                    <file name="com-barmeier-nbpre-MojoCodeCompletionProvider.instance"/>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Actions">
+
+        <folder name="Project">
+            <file name="com-barmeier-nbpre-actions-StartEmulatorAction.instance">
+                <attr name="instanceCreate" methodvalue="com.barmeier.nbpre.actions.StartEmulatorActionPerformer.createInstance"/>
+                <attr name="iconBase" stringvalue="com/barmeier/nbpre/images/emulator.png"/>
+                <attr name="displayName" bundlevalue="com.barmeier.nbpre.actions.Bundle#CTL_StartEmulator"/>
+            </file>
+
+            <file name="com-barmeier-nbpre-actions-nbpreInstallAppAction.instance">
+                <attr name="instanceCreate" methodvalue="com.barmeier.nbpre.actions.nbpreInstallAppActionPerformer.createInstance"/>
+                <attr name="iconBase" stringvalue="com/barmeier/nbpre/images/install.png"/>
+                <attr name="displayName" bundlevalue="com.barmeier.nbpre.actions.Bundle#CTL_nbpreInstallApp"/>
+            </file>
+
+            <file name="com-barmeier-nbpre-actions-nbprePackAppAction.instance">
+                <attr name="instanceCreate" methodvalue="com.barmeier.nbpre.actions.nbprePackAppActionPerformer.createInstance"/>
+                <attr name="iconBase" stringvalue="com/barmeier/nbpre/images/build.png"/>
+                <attr name="displayName" bundlevalue="com.barmeier.nbpre.actions.Bundle#CTL_nbprePackApp"/>
+            </file>
+
+            <file name="com-barmeier-nbpre-actions-nbpreLaunchAction.instance">
+                <attr name="instanceCreate" methodvalue="com.barmeier.nbpre.actions.nbpreLaunchAppActionPerformer.createInstance"/>
+                <attr name="iconBase" stringvalue="com/barmeier/nbpre/images/launch.png"/>
+                <attr name="displayName" bundlevalue="com.barmeier.nbpre.actions.Bundle#CTL_nbpreLaunchApp"/>
+            </file>
+
+            <file name="com-barmeier-nbpre-actions-ShowLogAction.instance">
+                <attr name="instanceCreate" methodvalue="com.barmeier.nbpre.actions.ShowLogActionPerformer.createInstance"/>
+                <attr name="iconBase" stringvalue="com/barmeier/nbpre/images/log.png"/>
+                <attr name="displayName" bundlevalue="com.barmeier.nbpre.actions.Bundle#CTL_ShowLog"/>
+            </file>
+        </folder>
+
+
+        <folder name="Build">
+
+        </folder>
+    </folder>
+    <folder name="Templates">
+        <folder name="Project">
+            <folder name="Palm Pre">
+                <file name="PalmApplicatonProject.zip" url="PalmApplicatonProject.zip">
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/com/barmeier/nbpre/images/icon.png"/>
+                    <attr name="displayName" bundlevalue="com.barmeier.nbpre.Bundle#Templates/Project/Standard/PalmApplicatonProject.zip"/>
+                    <attr name="instantiatingIterator" methodvalue="com.barmeier.nbpre.template.PalmApplicatonWizardIterator.createIterator"/>
+                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/com/barmeier/nbpre/template/PalmApplicatonDescription.html"/>
+                    <attr name="template" boolvalue="true"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Toolbars">
+        <folder name="PalmTools">
+
+            <file name="com-barmeier-nbpre-actions-nbprePackAppAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-nbprePackAppAction.instance"/>
+                <attr name="position" intvalue="125"/>
+            </file>
+            <file name="com-barmeier-nbpre-actions-nbpreInstallAppAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-nbpreInstallAppAction.instance"/>
+                <attr name="position" intvalue="150"/>
+            </file>
+            <file name="com-barmeier-nbpre-actions-nbpreLaunchAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-nbpreLaunchAction.instance"/>
+                <attr name="position" intvalue="175"/>
+            </file>
+            <file name="SeparatorAfterModelToolbarActions.instance">
+                <attr name="instanceClass" stringvalue="com.barmeier.nbpre.utils.Separator"/>
+                <attr name="position" intvalue="188"/>
+            </file>
+
+            <file name="com-barmeier-nbpre-actions-StartEmulatorAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-StartEmulatorAction.instance"/>
+                <attr name="position" intvalue="200"/>
+            </file>
+            <file name="com-barmeier-nbpre-actions-ShowLogAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-ShowLogAction.instance"/>
+                <attr name="position" intvalue="225"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>
