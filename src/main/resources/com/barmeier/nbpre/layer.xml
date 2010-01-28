@@ -65,16 +65,16 @@
     <folder name="Toolbars">
         <folder name="PalmTools">
 
-            <file name="com-barmeier-nbpre-actions-nbprePackAppAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-nbprePackAppAction.instance"/>
+            <file name="com-barmeier-nbpre-actions-PalmPrePackAppAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-PalmPrePackAppAction.instance"/>
                 <attr name="position" intvalue="125"/>
             </file>
-            <file name="com-barmeier-nbpre-actions-nbpreInstallAppAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-nbpreInstallAppAction.instance"/>
+            <file name="com-barmeier-nbpre-actions-PalmPreInstallAppAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-PalmPreInstallAppAction.instance"/>
                 <attr name="position" intvalue="150"/>
             </file>
-            <file name="com-barmeier-nbpre-actions-nbpreLaunchAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-nbpreLaunchAction.instance"/>
+            <file name="com-barmeier-nbpre-actions-PalmPreLaunchAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-PalmPreLaunchAction.instance"/>
                 <attr name="position" intvalue="175"/>
             </file>
             <file name="SeparatorAfterModelToolbarActions.instance">

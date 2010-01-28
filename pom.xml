@@ -108,6 +108,7 @@
 		<extensions>true</extensions>
 		<configuration>
 		    <descriptor>src/main/nbm/module.xml</descriptor>
+                    <netbeansInstallation>/usr/local/netbeans-6.8</netbeansInstallation>
 		</configuration>
 	    </plugin>
 
