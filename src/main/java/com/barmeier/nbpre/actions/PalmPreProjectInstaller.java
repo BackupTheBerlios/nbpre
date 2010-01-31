@@ -5,12 +5,12 @@
 
 package com.barmeier.nbpre.actions;
 
+import com.barmeier.nbpre.NotYetConfiguredException;
 import com.barmeier.nbpre.PalmPreProjectFactory;
 import com.barmeier.nbpre.options.PalmSDKSettingsPanel;
 import com.barmeier.nbpre.utils.ApplicationProperties;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,7 +39,7 @@ public class PalmPreProjectInstaller {
         this.dataObject = null;
     }
 
-    public void installProject(Project project){
+    public void installProject(Project project) throws NotYetConfiguredException{
         ProcessBuilder procBuilder;
         Process process;
         Map<String, String> env;
@@ -50,7 +50,18 @@ public class PalmPreProjectInstaller {
         OutputWriter outputWriter;
 
         LifecycleManager.getDefault().saveAll();
+        // First we check if everything is in place and reachable
+        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("installer", "");
+        File executable = new File(filename);
+        if (!executable.exists() || !executable.canExecute()) {
 
+            throw new NotYetConfiguredException("The palm-installer executable "
+                    + "is not executable or cannot be found.\n Pleas check "
+                    + "permissions and location of the file.\n Actually "
+                    + "configured is: [" + filename + "]\n\n You can change " +
+                    "this in the Toole menu under\n"
+                    + "Tools->Options->Miscellaneous->PalmSDK.");
+        }
         // get an output window tab
         io = IOProvider.getDefault().getIO("PalmPre", false);
         io.select();
@@ -62,7 +73,7 @@ public class PalmPreProjectInstaller {
 
         // construct the SWI Prolog process command
         cmd = new ArrayList<String>();
-        cmd.add(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("installer", ""));
+        cmd.add(filename);
         cmd.add(projectRoot.getPath()+File.separator+app.getId()+"_"+app.getVersion()+"_all.ipk");
 
         procBuilder = new ProcessBuilder(cmd);

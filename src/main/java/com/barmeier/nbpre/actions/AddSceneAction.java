@@ -43,6 +43,7 @@ public class AddSceneAction extends AbstractAction {
         this.project = project;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         ProcessBuilder procBuilder;
         Process process;
@@ -52,6 +53,23 @@ public class AddSceneAction extends AbstractAction {
         String line;
         InputOutput io;
         OutputWriter outputWriter;
+
+        // First we check if everything is in place and reachable
+        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("generator", "");
+        File executable = new File(filename);
+        if (!executable.exists() || !executable.canExecute()) {
+
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The palm-generator executable " +
+                    "is not executable or cannot be found.\n Pleas check " +
+                    "permissions and location of the file.\n Actually " +
+                    "configured is: ["+filename+"]\n\n You can change this " +
+                    "in the Toole menu under\n" +
+                    "Tools->Options->Miscellaneous->PalmSDK.");
+            DialogDisplayer.getDefault().notify(nd);
+            return;
+        }
+
+
 
         NotifyDescriptor.InputLine nd = new NotifyDescriptor.InputLine("Scene Name:", "Enter Scene Name");
 

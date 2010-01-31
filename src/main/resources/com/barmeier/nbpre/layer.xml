@@ -67,28 +67,28 @@
 
             <file name="com-barmeier-nbpre-actions-PalmPrePackAppAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-PalmPrePackAppAction.instance"/>
-                <attr name="position" intvalue="125"/>
+                <attr name="position" intvalue="0"/>
             </file>
             <file name="com-barmeier-nbpre-actions-PalmPreInstallAppAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-PalmPreInstallAppAction.instance"/>
-                <attr name="position" intvalue="150"/>
+                <attr name="position" intvalue="32"/>
             </file>
             <file name="com-barmeier-nbpre-actions-PalmPreLaunchAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-PalmPreLaunchAction.instance"/>
-                <attr name="position" intvalue="175"/>
+                <attr name="position" intvalue="64"/>
             </file>
             <file name="SeparatorAfterModelToolbarActions.instance">
                 <attr name="instanceClass" stringvalue="com.barmeier.nbpre.utils.Separator"/>
-                <attr name="position" intvalue="188"/>
+                <attr name="position" intvalue="96"/>
             </file>
 
             <file name="com-barmeier-nbpre-actions-StartEmulatorAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-StartEmulatorAction.instance"/>
-                <attr name="position" intvalue="200"/>
+                <attr name="position" intvalue="128"/>
             </file>
             <file name="com-barmeier-nbpre-actions-ShowLogAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-ShowLogAction.instance"/>
-                <attr name="position" intvalue="225"/>
+                <attr name="position" intvalue="160"/>
             </file>
         </folder>
     </folder>

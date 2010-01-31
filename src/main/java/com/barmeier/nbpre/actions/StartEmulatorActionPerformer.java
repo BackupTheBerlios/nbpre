@@ -11,6 +11,7 @@ import com.barmeier.nbpre.options.PalmSDKSettingsPanel;
 import com.barmeier.nbpre.utils.ApplicationProperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -28,6 +29,7 @@ import org.netbeans.spi.project.ui.support.MainProjectSensitiveActions;
 import org.netbeans.spi.project.ui.support.ProjectActionPerformer;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.util.Exceptions;
 import org.openide.util.ImageUtilities;
@@ -36,7 +38,8 @@ import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 
 public final class StartEmulatorActionPerformer implements ProjectActionPerformer, ActionListener {
-    private static boolean isRunning=false;
+
+    private static boolean isRunning = false;
 
     public static Action createInstance(FileObject o) {
         String icon = (String) o.getAttribute("iconBase");
@@ -48,43 +51,59 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
         return action;
     }
 
+    @Override
     public boolean enable(Project project) {
         return org.netbeans.api.project.ui.OpenProjects.getDefault().getMainProject() instanceof PalmPreProject && !isRunning;
 
     }
 
+    @Override
     public void perform(Project project) {
-
+        // First we check if everything is in place and reachable
+        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("emulator", "");
+        File executable = new File(filename);
+        if (!executable.exists() || !executable.canExecute()) {
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The emulator executable " +
+                    "is not executable or cannot be found.\n Pleas check " +
+                    "permissions and location of the file.\n Actually " +
+                    "configured is: ["+filename+"]\n\n You can change this in the Toole menu under\n" +
+                    "Tools->Options->Miscellaneous->PalmSDK.");
+            DialogDisplayer.getDefault().notify(nd);
+            return;
+        }
 
         FileObject projectRoot = project.getProjectDirectory();
         FileObject appInfo = projectRoot.getFileObject(PalmPreProjectFactory.APP_INFO_FILE);
         final ApplicationProperties app = new ApplicationProperties(appInfo.getPath());
 
         final ArrayList<String> al = new ArrayList<String>();
-        final InputProcessorFactory ipf = new InputProcessorFactory () {
+        final InputProcessorFactory ipf = new InputProcessorFactory() {
 
+            @Override
             public InputProcessor newInputProcessor(InputProcessor defaultProcessor) {
                 return InputProcessors.bridge(new LineProcessor() {
+
+                    @Override
                     public void processLine(String line) {
                         al.add(line);
                     }
 
+                    @Override
                     public void reset() {
                     }
 
+                    @Override
                     public void close() {
                     }
                 });
             }
         };
 
-        InputOutput io= IOProvider.getDefault().getIO("Palm Log for <"+app.getId()+">",true);
-        ExecutionDescriptor ed = new ExecutionDescriptor().inputOutput(io)
-                .frontWindow(true)
-                .outProcessorFactory(ipf)
-                .controllable(true);
+        InputOutput io = IOProvider.getDefault().getIO("Palm Log for <" + app.getId() + ">", true);
+        ExecutionDescriptor ed = new ExecutionDescriptor().inputOutput(io).frontWindow(true).outProcessorFactory(ipf).controllable(true);
+
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder(
-                NbPreferences.forModule(PalmSDKSettingsPanel.class).get("emulator", "")).addArgument("--list");
+                filename).addArgument("--list");
         ExecutionService service = ExecutionService.newService(processBuilder, ed, "palm log");
         Future<Integer> task = service.run();
         try {
@@ -94,19 +113,17 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
         } catch (ExecutionException ex) {
             Exceptions.printStackTrace(ex);
         }
-        
         VMSelector vms = new VMSelector();
-        DialogDescriptor d=null;
+        DialogDescriptor d = null;
         vms.setVMs(al);
-        d = new DialogDescriptor(vms,"Choose your VM", true, this);
+        d = new DialogDescriptor(vms, "Choose your VM", true, this);
         DialogDisplayer.getDefault().notifyLater(d);
-        isRunning=true;
+        isRunning = true;
 
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }
 
