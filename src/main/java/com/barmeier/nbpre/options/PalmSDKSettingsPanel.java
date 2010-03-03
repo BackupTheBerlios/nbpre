@@ -5,6 +5,7 @@
 package com.barmeier.nbpre.options;
 
 import java.io.File;
+import javax.swing.JFileChooser;
 import org.openide.util.NbPreferences;
 
 public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
@@ -25,66 +26,47 @@ public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        palmInspectorLabel = new javax.swing.JLabel();
-        palmInspectorTextField = new javax.swing.JTextField();
-        palmEmulatorLabel = new javax.swing.JLabel();
-        palmEmulatorTextField = new javax.swing.JTextField();
-        palmGeneratorLabel = new javax.swing.JLabel();
-        palmGeneratorTextField = new javax.swing.JTextField();
-        palmInstallerLabel = new javax.swing.JLabel();
-        palmInstallerTextField = new javax.swing.JTextField();
-        palmLauncherLabel = new javax.swing.JLabel();
-        palmLauncherTextField = new javax.swing.JTextField();
-        palmLoggerLabel = new javax.swing.JLabel();
-        palmLoggerTextField = new javax.swing.JTextField();
-        palmPackerLabel = new javax.swing.JLabel();
-        palmPackerTextField = new javax.swing.JTextField();
-        palmWormLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        vendorIdLabel = new javax.swing.JLabel();
         palmWormTextField = new javax.swing.JTextField();
         useSamePathCheckBox = new javax.swing.JCheckBox();
-        vendorIdLabel = new javax.swing.JLabel();
-        vendorIdTextField = new javax.swing.JTextField();
+        palmPackerTextField = new javax.swing.JTextField();
+        palmWormLabel = new javax.swing.JLabel();
+        palmLoggerTextField = new javax.swing.JTextField();
+        palmPackerLabel = new javax.swing.JLabel();
+        palmLauncherTextField = new javax.swing.JTextField();
+        palmLoggerLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        palmInspectorTextField = new javax.swing.JTextField();
+        vendorIdTextField = new javax.swing.JTextField();
+        palmInspectorLabel = new javax.swing.JLabel();
+        palmLauncherLabel = new javax.swing.JLabel();
+        palmGeneratorTextField = new javax.swing.JTextField();
+        palmGeneratorLabel = new javax.swing.JLabel();
+        palmEmulatorTextField = new javax.swing.JTextField();
+        palmEmulatorLabel = new javax.swing.JLabel();
+        palmInstallerTextField = new javax.swing.JTextField();
+        palmInstallerLabel = new javax.swing.JLabel();
+        palmInspectorFileChooser = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        virtualBoxTextField = new javax.swing.JTextField();
+        virtualBoxFileChooser = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        vBoxManageTextField = new javax.swing.JTextField();
+        vBoxManageFileChooser = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(495, 294));
 
-        org.openide.awt.Mnemonics.setLocalizedText(palmInspectorLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInspectorLabel.text")); // NOI18N
+        jTabbedPane1.setBackground(new java.awt.Color(48, 190, 190));
 
-        palmInspectorTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInspectorTextField.text")); // NOI18N
-        palmInspectorTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pathCharHandler(evt);
-            }
-        });
-
-        org.openide.awt.Mnemonics.setLocalizedText(palmEmulatorLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmEmulatorLabel.text")); // NOI18N
-
-        palmEmulatorTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmEmulatorTextField.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(palmGeneratorLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmGeneratorLabel.text")); // NOI18N
-
-        palmGeneratorTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmGeneratorTextField.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(palmInstallerLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInstallerLabel.text")); // NOI18N
-
-        palmInstallerTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInstallerTextField.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(palmLauncherLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLauncherLabel.text")); // NOI18N
-
-        palmLauncherTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLauncherTextField.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(palmLoggerLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLoggerLabel.text")); // NOI18N
-
-        palmLoggerTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLoggerTextField.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(palmPackerLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmPackerLabel.text")); // NOI18N
-
-        palmPackerTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmPackerTextField.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(palmWormLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmWormLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(vendorIdLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.vendorIdLabel.text")); // NOI18N
 
         palmWormTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmWormTextField.text")); // NOI18N
 
+        useSamePathCheckBox.setSelected(true);
         org.openide.awt.Mnemonics.setLocalizedText(useSamePathCheckBox, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.useSamePathCheckBox.text")); // NOI18N
         useSamePathCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,112 +74,250 @@ public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(vendorIdLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.vendorIdLabel.text")); // NOI18N
+        palmPackerTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmPackerTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmWormLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmWormLabel.text")); // NOI18N
+
+        palmLoggerTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLoggerTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmPackerLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmPackerLabel.text")); // NOI18N
+
+        palmLauncherTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLauncherTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmLoggerLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLoggerLabel.text")); // NOI18N
+
+        palmInspectorTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInspectorTextField.text")); // NOI18N
+        palmInspectorTextField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                palmInspectorTextFieldPropertyChange(evt);
+            }
+        });
+        palmInspectorTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pathCharHandler(evt);
+            }
+        });
 
         vendorIdTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.vendorIdTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmInspectorLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInspectorLabel.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmLauncherLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmLauncherLabel.text")); // NOI18N
+
+        palmGeneratorTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmGeneratorTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmGeneratorLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmGeneratorLabel.text")); // NOI18N
+
+        palmEmulatorTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmEmulatorTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmEmulatorLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmEmulatorLabel.text")); // NOI18N
+
+        palmInstallerTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInstallerTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(palmInstallerLabel, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInstallerLabel.text")); // NOI18N
+
+        palmInspectorFileChooser.setMnemonic('B');
+        org.openide.awt.Mnemonics.setLocalizedText(palmInspectorFileChooser, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.palmInspectorFileChooser.text")); // NOI18N
+        palmInspectorFileChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                palmInspectorFileChooserActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(palmLauncherLabel)
+                            .addComponent(palmInstallerLabel)
+                            .addComponent(palmWormLabel)
+                            .addComponent(palmLoggerLabel)
+                            .addComponent(palmPackerLabel)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(palmEmulatorLabel)
+                                .addComponent(palmInspectorLabel)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(palmGeneratorLabel)
+                                    .addGap(7, 7, 7))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(palmWormTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(palmPackerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(palmGeneratorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(palmInspectorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(palmInspectorFileChooser))
+                            .addComponent(palmInstallerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(palmEmulatorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(palmLoggerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(palmLauncherTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(useSamePathCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(120, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(vendorIdLabel)
+                    .addGap(85, 85, 85)
+                    .addComponent(vendorIdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addContainerGap(243, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(useSamePathCheckBox)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmInspectorLabel)
+                    .addComponent(palmInspectorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(palmInspectorFileChooser))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmEmulatorLabel)
+                    .addComponent(palmEmulatorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmGeneratorLabel)
+                    .addComponent(palmGeneratorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmInstallerLabel)
+                    .addComponent(palmInstallerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmLauncherLabel)
+                    .addComponent(palmLauncherTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmLoggerLabel)
+                    .addComponent(palmLoggerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmPackerLabel)
+                    .addComponent(palmPackerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palmWormLabel)
+                    .addComponent(palmWormTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(60, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(vendorIdLabel)
+                        .addComponent(vendorIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(387, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.jLabel1.text")); // NOI18N
+
+        virtualBoxTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.virtualBoxTextField.text")); // NOI18N
+
+        virtualBoxFileChooser.setMnemonic('B');
+        org.openide.awt.Mnemonics.setLocalizedText(virtualBoxFileChooser, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.virtualBoxFileChooser.text")); // NOI18N
+        virtualBoxFileChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                virtualBoxFileChooserActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.jLabel2.text")); // NOI18N
+
+        vBoxManageTextField.setText(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.vBoxManageTextField.text")); // NOI18N
+
+        vBoxManageFileChooser.setMnemonic('B');
+        org.openide.awt.Mnemonics.setLocalizedText(vBoxManageFileChooser, org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.vBoxManageFileChooser.text")); // NOI18N
+        vBoxManageFileChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vBoxManageFileChooserActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vBoxManageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vBoxManageFileChooser))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(virtualBoxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(virtualBoxFileChooser)))
+                .addContainerGap(127, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(virtualBoxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(virtualBoxFileChooser))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(vBoxManageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vBoxManageFileChooser))
+                .addContainerGap(338, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(PalmSDKSettingsPanel.class, "PalmSDKSettingsPanel.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
+
+        jScrollPane1.setViewportView(jTabbedPane1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(useSamePathCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(vendorIdLabel)
-                        .addGap(85, 85, 85)
-                        .addComponent(vendorIdTextField))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(palmLauncherLabel)
-                            .addComponent(palmInstallerLabel)
-                            .addComponent(palmWormLabel)
-                            .addComponent(palmLoggerLabel)
-                            .addComponent(palmPackerLabel)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(palmEmulatorLabel)
-                                .addComponent(palmInspectorLabel)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(palmGeneratorLabel)
-                                    .addGap(7, 7, 7))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(palmWormTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(palmPackerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(palmGeneratorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(palmInspectorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(palmInstallerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(palmEmulatorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(palmLoggerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(palmLauncherTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator1))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vendorIdLabel)
-                    .addComponent(vendorIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(useSamePathCheckBox)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmInspectorLabel)
-                    .addComponent(palmInspectorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmEmulatorLabel)
-                    .addComponent(palmEmulatorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmGeneratorLabel)
-                    .addComponent(palmGeneratorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmInstallerLabel)
-                    .addComponent(palmInstallerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmLauncherLabel)
-                    .addComponent(palmLauncherTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmLoggerLabel)
-                    .addComponent(palmLoggerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmPackerLabel)
-                    .addComponent(palmPackerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palmWormLabel)
-                    .addComponent(palmWormTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void adjustPathes() {
         String typed = new File(palmInspectorTextField.getText()).getParent();
-        palmEmulatorTextField.setText(typed+File.separator+"palm-emulator");
-        palmGeneratorTextField.setText(typed+File.separator+"palm-generate");
-        palmInstallerTextField.setText(typed+File.separator+"palm-install");
-        palmLauncherTextField.setText(typed+File.separator+"palm-launch");
-        palmPackerTextField.setText(typed+File.separator+"palm-package");
-        palmLoggerTextField.setText(typed+File.separator+"palm-log");
-        palmWormTextField.setText(typed+File.separator+"palm-worm");
+        palmEmulatorTextField.setText(typed + File.separator + "palm-emulator");
+        palmGeneratorTextField.setText(typed + File.separator + "palm-generate");
+        palmInstallerTextField.setText(typed + File.separator + "palm-install");
+        palmLauncherTextField.setText(typed + File.separator + "palm-launch");
+        palmPackerTextField.setText(typed + File.separator + "palm-package");
+        palmLoggerTextField.setText(typed + File.separator + "palm-log");
+        palmWormTextField.setText(typed + File.separator + "palm-worm");
     }
 
     private void pathCharHandler(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pathCharHandler
-       if (useSamePathCheckBox.isSelected()) {
+        if (useSamePathCheckBox.isSelected()) {
             adjustPathes();
-       }
+        }
     }//GEN-LAST:event_pathCharHandler
 
     private void useSamePathCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useSamePathCheckBoxActionPerformed
@@ -209,6 +329,43 @@ public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
         palmLoggerTextField.setEnabled(!useSamePathCheckBox.isSelected());
         palmWormTextField.setEnabled(!useSamePathCheckBox.isSelected());
     }//GEN-LAST:event_useSamePathCheckBoxActionPerformed
+
+    private void virtualBoxFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_virtualBoxFileChooserActionPerformed
+        //Create a file chooser
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            virtualBoxTextField.setText(file.getAbsolutePath());
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_virtualBoxFileChooserActionPerformed
+
+    private void vBoxManageFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vBoxManageFileChooserActionPerformed
+        //Create a file chooser
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            vBoxManageTextField.setText(file.getAbsolutePath());
+        }
+    }//GEN-LAST:event_vBoxManageFileChooserActionPerformed
+
+    private void palmInspectorFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palmInspectorFileChooserActionPerformed
+        //Create a file chooser
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            palmInspectorTextField.setText(file.getAbsolutePath());
+            if (useSamePathCheckBox.isSelected()) {
+                adjustPathes();
+            }
+        }
+    }//GEN-LAST:event_palmInspectorFileChooserActionPerformed
+
+    private void palmInspectorTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_palmInspectorTextFieldPropertyChange
+    }//GEN-LAST:event_palmInspectorTextFieldPropertyChange
 
     void load() {
         // TODO read settings and initialize GUI
@@ -228,6 +385,8 @@ public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
         palmLoggerTextField.setText(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("logger", ""));
         palmWormTextField.setText(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("worm", ""));
         vendorIdTextField.setText(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("vendorId", ""));
+        virtualBoxTextField.setText(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("virtualBox", ""));
+        vBoxManageTextField.setText(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("vBoxManage", ""));
     }
 
     void store() {
@@ -248,6 +407,8 @@ public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
         NbPreferences.forModule(PalmSDKSettingsPanel.class).put("logger", palmLoggerTextField.getText());
         NbPreferences.forModule(PalmSDKSettingsPanel.class).put("worm", palmWormTextField.getText());
         NbPreferences.forModule(PalmSDKSettingsPanel.class).put("vendorId", vendorIdTextField.getText());
+        NbPreferences.forModule(PalmSDKSettingsPanel.class).put("virtualBox", virtualBoxTextField.getText());
+        NbPreferences.forModule(PalmSDKSettingsPanel.class).put("vBoxManage", vBoxManageTextField.getText());
     }
 
     boolean valid() {
@@ -255,11 +416,18 @@ public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
         return true;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel palmEmulatorLabel;
     private javax.swing.JTextField palmEmulatorTextField;
     private javax.swing.JLabel palmGeneratorLabel;
     private javax.swing.JTextField palmGeneratorTextField;
+    private javax.swing.JButton palmInspectorFileChooser;
     private javax.swing.JLabel palmInspectorLabel;
     private javax.swing.JTextField palmInspectorTextField;
     private javax.swing.JLabel palmInstallerLabel;
@@ -273,7 +441,11 @@ public final class PalmSDKSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel palmWormLabel;
     private javax.swing.JTextField palmWormTextField;
     private javax.swing.JCheckBox useSamePathCheckBox;
+    private javax.swing.JButton vBoxManageFileChooser;
+    private javax.swing.JTextField vBoxManageTextField;
     private javax.swing.JLabel vendorIdLabel;
     private javax.swing.JTextField vendorIdTextField;
+    private javax.swing.JButton virtualBoxFileChooser;
+    private javax.swing.JTextField virtualBoxTextField;
     // End of variables declaration//GEN-END:variables
 }

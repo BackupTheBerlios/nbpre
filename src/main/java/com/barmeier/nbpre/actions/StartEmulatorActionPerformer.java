@@ -12,6 +12,9 @@ import com.barmeier.nbpre.utils.ApplicationProperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -40,6 +43,7 @@ import org.openide.windows.InputOutput;
 public final class StartEmulatorActionPerformer implements ProjectActionPerformer, ActionListener {
 
     private static boolean isRunning = false;
+    private VMSelector vms;
 
     public static Action createInstance(FileObject o) {
         String icon = (String) o.getAttribute("iconBase");
@@ -57,21 +61,51 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
 
     }
 
+    private boolean checkNovacom() {
+        return true;
+    }
+
+    private boolean checkVirtualbox() {
+        return true;
+    }
+
+    private boolean isNovaRunning() {
+        Socket s;
+        try {
+           s = new Socket("localhost", 6968);
+           s.close();
+        } catch (UnknownHostException ex) {
+            return false;
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
+
+
+    }
+
     @Override
     public void perform(Project project) {
         // First we check if everything is in place and reachable
-        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("emulator", "");
+        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("vBoxManage", "");
         File executable = new File(filename);
         if (!executable.exists() || !executable.canExecute()) {
-            NotifyDescriptor nd = new NotifyDescriptor.Message("The emulator executable " +
-                    "is not executable or cannot be found.\n Pleas check " +
-                    "permissions and location of the file.\n Actually " +
-                    "configured is: ["+filename+"]\n\n You can change this in the Toole menu under\n" +
-                    "Tools->Options->Miscellaneous->PalmSDK.");
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The emulator executable "
+                    + "is not executable or cannot be found.\n Pleas check "
+                    + "permissions and location of the file.\n Actually "
+                    + "configured is: [" + filename + "]\n\n You can change this in the Toole menu under\n"
+                    + "Tools->Options->Miscellaneous->PalmSDK.");
             DialogDisplayer.getDefault().notify(nd);
             return;
         }
 
+        if (!isNovaRunning()) {
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The novacomd ist nit running or not reachable.\n\n" +
+                    "PLease make sure you have started the novacomd program and added port 6968\n" +
+                    "to your firewall exceptions.");
+            DialogDisplayer.getDefault().notify(nd);
+            return;
+        }
         FileObject projectRoot = project.getProjectDirectory();
         FileObject appInfo = projectRoot.getFileObject(PalmPreProjectFactory.APP_INFO_FILE);
         final ApplicationProperties app = new ApplicationProperties(appInfo.getPath());
@@ -85,7 +119,9 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
 
                     @Override
                     public void processLine(String line) {
-                        al.add(line);
+                        if (line.indexOf("Palm SDK") != -1) {
+                            al.add(line.substring(0,line.indexOf("{")).replace("\"", "").trim());
+                        }
                     }
 
                     @Override
@@ -103,8 +139,9 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
         ExecutionDescriptor ed = new ExecutionDescriptor().inputOutput(io).frontWindow(true).outProcessorFactory(ipf).controllable(true);
 
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder(
-                filename).addArgument("--list");
-        ExecutionService service = ExecutionService.newService(processBuilder, ed, "palm log");
+                filename).addArgument("list").
+                addArgument("vms");
+        ExecutionService service = ExecutionService.newService(processBuilder, ed, "palm vm");
         Future<Integer> task = service.run();
         try {
             task.get();
@@ -113,7 +150,7 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
         } catch (ExecutionException ex) {
             Exceptions.printStackTrace(ex);
         }
-        VMSelector vms = new VMSelector();
+        vms = new VMSelector();
         DialogDescriptor d = null;
         vms.setVMs(al);
         d = new DialogDescriptor(vms, "Choose your VM", true, this);
@@ -124,6 +161,25 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() != DialogDescriptor.CANCEL_OPTION) {
+            String x = vms.getVMString();
+            InputOutput io = IOProvider.getDefault().getIO("Palm VM Log", true);
+            ExecutionDescriptor ed = new ExecutionDescriptor().inputOutput(io).frontWindow(true).controllable(true);
+
+            String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("virtualBox", "");
+            ExternalProcessBuilder processBuilder = new ExternalProcessBuilder(
+                    filename).addArgument("--startvm").addArgument(x);
+            System.out.println(filename +" "+"--startvm \""+x+"\"" );
+            ExecutionService service = ExecutionService.newService(processBuilder, ed, "palm vm");
+            Future<Integer> task = service.run();
+//            try {
+//                task.get();
+//            } catch (InterruptedException ex) {
+//                Exceptions.printStackTrace(ex);
+//            } catch (ExecutionException ex) {
+//                Exceptions.printStackTrace(ex);
+//            }
+        }
     }
 }
 

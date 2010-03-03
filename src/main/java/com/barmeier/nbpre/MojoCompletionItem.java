@@ -45,16 +45,19 @@ public class MojoCompletionItem implements CompletionItem {
         this.caretOffset = caretOffset;
     }
 
+    @Override
     public int getPreferredWidth(Graphics graphics, Font font) {
         return CompletionUtilities.getPreferredWidth(text, null, graphics, font);
     }
 
+    @Override
     public void render(Graphics g, Font defaultFont, Color defaultColor,
             Color backgroundColor, int width, int height, boolean selected) {
         CompletionUtilities.renderHtml(fieldIcon, text, null, g, defaultFont,
                 (selected ? Color.white : fieldColor), width, height, selected);
     }
 
+    @Override
     public CharSequence getSortText() {
         return text;
     }
@@ -63,10 +66,12 @@ public class MojoCompletionItem implements CompletionItem {
         return text;
     }
 
+    @Override
     public CharSequence getInsertPrefix() {
         return text;
     }
 
+    @Override
     public void defaultAction(JTextComponent jTextComponent) {
         try {
             StyledDocument doc = (StyledDocument) jTextComponent.getDocument();
@@ -81,13 +86,16 @@ public class MojoCompletionItem implements CompletionItem {
 
     }
 
+    @Override
     public void processKeyEvent(KeyEvent arg0) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public CompletionTask createDocumentationTask() {
         return new AsyncCompletionTask(new AsyncCompletionQuery() {
 
+            @Override
             protected void query(CompletionResultSet completionResultSet, Document document, int i) {
                 completionResultSet.setDocumentation(new MojoCompletionDocument(MojoCompletionItem.this));
                 completionResultSet.finish();
@@ -95,9 +103,11 @@ public class MojoCompletionItem implements CompletionItem {
         });
     }
 
+    @Override
     public CompletionTask createToolTipTask() {
         return new AsyncCompletionTask(new AsyncCompletionQuery() {
 
+            @Override
             protected void query(CompletionResultSet completionResultSet, Document document, int i) {
                 JToolTip toolTip = new JToolTip();
                 toolTip.setTipText("Press Enter to insert \"" + text + "\"");
@@ -107,10 +117,12 @@ public class MojoCompletionItem implements CompletionItem {
         });
     }
 
+    @Override
     public boolean instantSubstitution(JTextComponent arg0) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
+    @Override
     public int getSortPriority() {
         return 0;
     }

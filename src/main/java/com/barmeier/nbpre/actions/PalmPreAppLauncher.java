@@ -13,13 +13,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.netbeans.api.project.Project;
-import org.openide.DialogDisplayer;
 import org.openide.LifecycleManager;
-import org.openide.NotifyDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObject;
 import org.openide.util.Exceptions;
@@ -61,17 +62,18 @@ public class PalmPreAppLauncher {
         pppi.installProject(project);
 
         // First we check if everything is in place and reachable
-        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("installer", "");
+        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("launcher", "");
         File executable = new File(filename);
         if (!executable.exists() || !executable.canExecute()) {
 
             throw new NotYetConfiguredException("The log executable " +
-                    "is not executable or cannot be found.\n Pleas check " +
+                    "is not executable or cannot be found.\n Please check " +
                     "permissions and location of the file.\n Actually " +
                     "configured is: ["+filename+"]\n\n You can change this in " +
                     "the Toole menu under\n" +
                     "Tools->Options->Miscellaneous->PalmSDK.");
         }
+
 
         //Launch App
         FileObject projectRoot = project.getProjectDirectory();

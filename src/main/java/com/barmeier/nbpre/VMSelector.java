@@ -31,7 +31,11 @@ public class VMSelector extends javax.swing.JPanel {
         for (String item:vmList) {
             lm.add(0,item);
         }
-        jList1.setModel(lm);
+        vmSelectionList.setModel(lm);
+    }
+
+    public String getVMString() {
+        return (String)vmSelectionList.getSelectedValue();
     }
 
     /** This method is called from within the constructor to
@@ -44,14 +48,14 @@ public class VMSelector extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        vmSelectionList = new javax.swing.JList();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        vmSelectionList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(vmSelectionList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -73,8 +77,8 @@ public class VMSelector extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList vmSelectionList;
     // End of variables declaration//GEN-END:variables
 
 }
