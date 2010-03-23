@@ -100,8 +100,8 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
         }
 
         if (!isNovaRunning()) {
-            NotifyDescriptor nd = new NotifyDescriptor.Message("The novacomd ist nit running or not reachable.\n\n" +
-                    "PLease make sure you have started the novacomd program and added port 6968\n" +
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The novacomd is not running or is not reachable.\n\n" +
+                    "Please make sure you have started the novacomd program and added port 6968\n" +
                     "to your firewall exceptions.");
             DialogDisplayer.getDefault().notify(nd);
             return;
@@ -119,7 +119,7 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
 
                     @Override
                     public void processLine(String line) {
-                        if (line.indexOf("Palm SDK") != -1) {
+                        if (line.indexOf("SDK") != -1) {
                             al.add(line.substring(0,line.indexOf("{")).replace("\"", "").trim());
                         }
                     }
