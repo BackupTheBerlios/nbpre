@@ -90,11 +90,11 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
         String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("vBoxManage", "");
         File executable = new File(filename);
         if (!executable.exists() || !executable.canExecute()) {
-            NotifyDescriptor nd = new NotifyDescriptor.Message("The emulator executable "
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The vBoxManage executable "
                     + "is not executable or cannot be found.\n Pleas check "
                     + "permissions and location of the file.\n Actually "
                     + "configured is: [" + filename + "]\n\n You can change this in the Toole menu under\n"
-                    + "Tools->Options->Miscellaneous->PalmSDK.");
+                    + "Tools->Options->Miscellaneous->PalmSDK in the \"VirtualBox Settings\" tab.");
             DialogDisplayer.getDefault().notify(nd);
             return;
         }
