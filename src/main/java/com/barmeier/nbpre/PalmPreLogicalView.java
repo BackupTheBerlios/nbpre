@@ -5,6 +5,8 @@
 package com.barmeier.nbpre;
 
 import com.barmeier.nbpre.actions.AddSceneAction;
+import com.barmeier.nbpre.actions.InstallProjectMenuAction;
+import com.barmeier.nbpre.actions.LaunchProjectMenuAction;
 import com.barmeier.nbpre.actions.PackProjectMenuAction;
 import java.awt.Image;
 import org.netbeans.spi.project.ui.LogicalViewProvider;
@@ -80,15 +82,18 @@ public class PalmPreLogicalView implements LogicalViewProvider {
 
         @Override
         public Action[] getActions(boolean arg0) {
-            Action[] nodeActions = new Action[11];
+            Action[] nodeActions = new Action[13];
             nodeActions[0] = new AddSceneAction(project);
             nodeActions[1] = new PackProjectMenuAction(project);
-            nodeActions[3] = CommonProjectActions.newFileAction();
-            nodeActions[4] = CommonProjectActions.copyProjectAction();
-            nodeActions[5] = CommonProjectActions.deleteProjectAction();
-            nodeActions[7] = CommonProjectActions.setAsMainProjectAction();
-            nodeActions[8] = CommonProjectActions.closeProjectAction();
-            nodeActions[10] = CommonProjectActions.customizeProjectAction();
+            nodeActions[2] = new InstallProjectMenuAction(project);
+            nodeActions[3] = new LaunchProjectMenuAction(project);
+
+            nodeActions[5] = CommonProjectActions.newFileAction();
+            nodeActions[6] = CommonProjectActions.copyProjectAction();
+            nodeActions[7] = CommonProjectActions.deleteProjectAction();
+            nodeActions[9] = CommonProjectActions.setAsMainProjectAction();
+            nodeActions[10] = CommonProjectActions.closeProjectAction();
+            nodeActions[12] = CommonProjectActions.customizeProjectAction();
             return nodeActions;
         }
 
