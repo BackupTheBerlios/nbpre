@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.MessageFormat;
-import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -20,7 +19,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.JComponent;
 import javax.swing.event.ChangeListener;
-import org.netbeans.api.project.ProjectManager;
 import org.netbeans.spi.project.ui.support.ProjectChooser;
 import org.netbeans.spi.project.ui.templates.support.Templates;
 import org.openide.WizardDescriptor;
@@ -58,6 +56,7 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
                 };
     }
 
+    @Override
     public Set/*<FileObject>*/ instantiate(/*ProgressHandle handle*/) throws IOException {
         Set<FileObject> resultSet = new LinkedHashSet<FileObject>();
         File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
@@ -89,6 +88,7 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
         return resultSet;
     }
 
+    @Override
     public void initialize(WizardDescriptor wiz) {
         this.wiz = wiz;
         index = 0;
@@ -114,6 +114,7 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
         }
     }
 
+    @Override
     public void uninitialize(WizardDescriptor wiz) {
         this.wiz.putProperty("projdir", null);
         this.wiz.putProperty("name", null);
@@ -121,6 +122,7 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
         panels = null;
     }
 
+    @Override
     public String name() {
         return MessageFormat.format("{0} of {1}",
                 new Object[]{new Integer(index + 1), new Integer(panels.length)});
@@ -130,10 +132,12 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
         return index < panels.length - 1;
     }
 
+    @Override
     public boolean hasPrevious() {
         return index > 0;
     }
 
+    @Override
     public void nextPanel() {
         if (!hasNext()) {
             throw new NoSuchElementException();
@@ -141,6 +145,7 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
         index++;
     }
 
+    @Override
     public void previousPanel() {
         if (!hasPrevious()) {
             throw new NoSuchElementException();
@@ -148,14 +153,17 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
         index--;
     }
 
+    @Override
     public WizardDescriptor.Panel current() {
         return panels[index];
     }
 
     // If nothing unusual changes in the middle of the wizard, simply:
+    @Override
     public final void addChangeListener(ChangeListener l) {
     }
 
+    @Override
     public final void removeChangeListener(ChangeListener l) {
     }
 

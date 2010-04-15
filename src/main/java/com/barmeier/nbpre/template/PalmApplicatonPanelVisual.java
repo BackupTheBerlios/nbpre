@@ -6,6 +6,7 @@ package com.barmeier.nbpre.template;
 
 import com.barmeier.nbpre.options.PalmSDKSettingsPanel;
 import java.io.File;
+import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
@@ -299,7 +300,26 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
     }
 
     void validate(WizardDescriptor d) throws WizardValidationException {
-        // nothing to validate
+        // Checking Version Information
+        StringTokenizer tok = new StringTokenizer(projectVersionTextField.getText(),".");
+        int i=0;
+        while (tok.hasMoreTokens()) {
+            i++;
+            try {
+                Integer.parseInt(tok.nextToken());
+            }
+            catch (NumberFormatException nex) {
+                throw new WizardValidationException(this, 
+                        "The version must consist of three numbers seperated by a dot.",
+                        "The version must consist of three numbers seperated by a dot.");
+            }
+        }
+        if (i<3) {
+            throw new WizardValidationException(this,
+                        "The version must consist of three numbers seperated by a dot.",
+                        "The version must consist of three numbers seperated by a dot.");
+        }
+
     }
 
     // Implementation of DocumentListener --------------------------------------
