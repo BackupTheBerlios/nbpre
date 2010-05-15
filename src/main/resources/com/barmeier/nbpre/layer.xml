@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
 <filesystem>
-    <folder name="Editors">
-        <folder name="text">
-            <folder name="javascript">
-                <folder name="CompletionProviders">
-                    <file name="com-barmeier-nbpre-MojoCodeCompletionProvider.instance"/>
-                </folder>
-            </folder>
-        </folder>
-    </folder>
     <folder name="Actions">
-
+        <folder name="Edit">
+            <file name="com-barmeier-nbpre-JSLintCheck.instance"/>
+        </folder>
         <folder name="Project">
             <file name="com-barmeier-nbpre-actions-StartEmulatorAction.instance">
                 <attr name="instanceCreate" methodvalue="com.barmeier.nbpre.actions.StartEmulatorActionPerformer.createInstance"/>
@@ -43,10 +36,20 @@
                 <attr name="displayName" bundlevalue="com.barmeier.nbpre.actions.Bundle#CTL_ShowLog"/>
             </file>
         </folder>
-
-
-        <folder name="Build">
-
+    </folder>
+    <folder name="Editors">
+        <folder name="text">
+            <folder name="javascript">
+                <folder name="CompletionProviders">
+                    <file name="com-barmeier-nbpre-MojoCodeCompletionProvider.instance"/>
+                </folder>
+                <folder name="Popup">
+                    <file name="com-barmeier-nbpre-JSLintCheck.shadow">
+                        <attr name="originalFile" stringvalue="Actions/Edit/com-barmeier-nbpre-JSLintCheck.instance"/>
+                        <attr name="position" intvalue="400"/>
+                    </file>
+                </folder>
+            </folder>
         </folder>
     </folder>
     <folder name="Templates">
@@ -92,4 +95,13 @@
             </file>
         </folder>
     </folder>
+    <!--folder name="Menu">
+        <folder name="File">
+            <file name="com-barmeier-nbpre-JSLintCheck.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/com-barmeier-nbpre-JSLintCheck.instance"/>
+                <attr name="position" intvalue="1100"/>
+            </file>
+        </folder>
+    </folder-->
 </filesystem>
+
