@@ -7,18 +7,25 @@ package com.barmeier.nbpre.actions;
 
 import com.barmeier.nbpre.NotYetConfiguredException;
 import com.barmeier.nbpre.options.PalmSDKSettingsPanel;
+import com.barmeier.nbpre.utils.JSLintChecker;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import javax.swing.SwingWorker;
 import org.netbeans.api.project.Project;
+import org.netbeans.api.project.ProjectUtils;
+import org.netbeans.api.project.SourceGroup;
+import org.netbeans.api.project.Sources;
 import org.openide.DialogDisplayer;
 import org.openide.LifecycleManager;
 import org.openide.NotifyDescriptor;
+import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObject;
 import org.openide.util.Exceptions;
 import org.openide.util.NbPreferences;
@@ -27,18 +34,78 @@ import org.openide.windows.InputOutput;
 import org.openide.windows.OutputWriter;
 
 /**
- *
+ * Packs a project for Palm Pre. This class uses the palm-package executable
+ * configured in the options panel. If a package run is started
  * @author barmeier
  */
 public class PalmPreProjectPacker {
     DataObject dataObject;
     String fileName;
 
+    /**
+     *
+     */
     public PalmPreProjectPacker() {
         this.dataObject = null;
     }
 
-    public void packProject(Project project) throws NotYetConfiguredException {
+    /**
+     *
+     * @param project
+     * @param executable
+     * @throws NotYetConfiguredException
+     */
+    public void jslintCheck(final Project project, final String executable)  throws NotYetConfiguredException {
+        
+
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                
+                boolean errors_found = false;
+                boolean clearFlag = true;
+                try {
+                    if (NbPreferences.forModule(PalmSDKSettingsPanel.class).getBoolean("runJSLint", true)) {
+                        JSLintChecker jslc = new JSLintChecker();
+                        Sources sources = ProjectUtils.getSources(project);
+                        for (SourceGroup sourceGroup : sources.getSourceGroups(Sources.TYPE_GENERIC)) {
+                            FileObject rootFolder = sourceGroup.getRootFolder();
+                            // notice the boolean parameter, that gives an enumerator which iterates recursively
+                            Enumeration<? extends FileObject> children = rootFolder.getChildren(true);
+                            while (children.hasMoreElements()) {
+                                FileObject next = children.nextElement();
+                                if (!next.isFolder() && next.getExt().equalsIgnoreCase("js")) {
+                                    System.out.println(next.getPath());
+                                    DataObject dataObject = DataObject.find(next);
+                                    errors_found = jslc.checkProjectFiles(dataObject,clearFlag) || errors_found;
+                                    clearFlag=false;
+                                }
+                            }
+                        }
+                    }
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                } 
+                return errors_found;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    if (!(Boolean)get() || !NbPreferences.forModule(PalmSDKSettingsPanel.class).getBoolean("dontLaunchAppOnWarnings", true)) {
+                        executePackProject(project, executable);
+                    }
+                } catch (Exception ex) {
+                    NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
+                    DialogDisplayer.getDefault().notify(nd);
+                }
+            }
+        };
+        worker.execute();        
+        
+    }
+
+    private void executePackProject (Project project, String executable) {
         ProcessBuilder procBuilder;
         Process process;
         Map<String, String> env;
@@ -47,6 +114,47 @@ public class PalmPreProjectPacker {
         String line;
         InputOutput io;
         OutputWriter outputWriter;
+        LifecycleManager.getDefault().saveAll();
+
+        String projectPath = project.getProjectDirectory().getPath();
+
+        // get an output window tab
+        io = IOProvider.getDefault().getIO("PalmPre", false);
+        io.select();
+        outputWriter = io.getOut();
+
+        // construct the SWI Prolog process command
+        cmd = new ArrayList<String>();
+        cmd.add(executable);
+        cmd.add("-o");
+        cmd.add(projectPath);
+        cmd.add(projectPath);
+
+        procBuilder = new ProcessBuilder(cmd);
+        procBuilder.redirectErrorStream(true);
+
+        try {
+            process = procBuilder.start();
+            InputStream is = process.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            // TODO: might want to clear the output window first...
+            outputWriter.printf("Output of running %s is:\n\n", cmd.toString());
+            while ((line = br.readLine()) != null) {
+                outputWriter.println(line);
+            }
+            // TODO: close outputwriter
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+    }
+
+    /**
+     *
+     * @param project
+     * @throws NotYetConfiguredException
+     */
+    public void packProject(Project project) throws NotYetConfiguredException {
 
         // First we check if everything is in place and reachable
         String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("packer", "");
@@ -61,47 +169,11 @@ public class PalmPreProjectPacker {
                     "Tools->Options->Miscellaneous->PalmSDK.");
         }
 
-        LifecycleManager.getDefault().saveAll();
-
-        String projectPath = project.getProjectDirectory().getPath();
-
-        // get an output window tab
-        io = IOProvider.getDefault().getIO("PalmPre", false);
-        io.select();
-        outputWriter = io.getOut();
-
-        // construct the SWI Prolog process command
-        cmd = new ArrayList<String>();
-        cmd.add(filename);
-        cmd.add("-o");
-        cmd.add(projectPath);
-        cmd.add(projectPath);
-
-        procBuilder = new ProcessBuilder(cmd);
-        procBuilder.redirectErrorStream(true);
-        // also s/b able to merge it into OutputWriter
-//        env = procBuilder.environment();
-//        env.put("VAR1", "myValue");
-//        env.remove("OTHERVAR");
-//        env.put("VAR2", env.get("VAR1") + "suffix");
-//        currDir = procBuilder.directory();
-//        if (currDir != null) {
-//            System.out.printf("Current directory is %s.", currDir.toString());
-//        }
-//        procBuilder.directory(new File("myDir"));
-        try {
-            process = procBuilder.start();
-            InputStream is = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            // TODO: might want to clear the output window first...
-            outputWriter.printf("Output of running %s is:\n\n", cmd.toString());
-            while ((line = br.readLine()) != null) {
-                outputWriter.println(line);
-            }
-            // TODO: close outputwriter
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
+        if (NbPreferences.forModule(PalmSDKSettingsPanel.class).getBoolean("runJSLint", true)) {
+            jslintCheck(project, filename);
+        }
+        else {
+            executePackProject(project, filename);
         }
     }
 

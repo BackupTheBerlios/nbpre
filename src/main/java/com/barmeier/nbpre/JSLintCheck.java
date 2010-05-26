@@ -4,52 +4,36 @@
  */
 package com.barmeier.nbpre;
 
-import com.barmeier.nbpre.utils.JSLintOutputListener;
-import com.googlecode.jslint4java.Issue;
-import com.googlecode.jslint4java.JSLint;
+import com.barmeier.nbpre.utils.JSLintChecker;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
 import org.openide.cookies.EditorCookie;
 import org.openide.loaders.DataObject;
 import org.openide.nodes.Node;
 import org.openide.util.Exceptions;
 import org.openide.util.HelpCtx;
 import org.openide.util.actions.CookieAction;
-import org.openide.windows.IOProvider;
-import org.openide.windows.InputOutput;
 
 public final class JSLintCheck extends CookieAction {
 
     @Override
     protected void performAction(Node[] activatedNodes) {
-        EditorCookie editorCookie = activatedNodes[0].getLookup().lookup(EditorCookie.class);
-        
-        DataObject dataObject = activatedNodes[0].getLookup().lookup(DataObject.class);
-        String path = (dataObject.getPrimaryFile()).getPath();
-        JSLintOutputListener jlo = new JSLintOutputListener();
-
-        // "XML Structure" tab is created in Output Window for writing the list of tags:
-        InputOutput io = IOProvider.getDefault().getIO("JSLint", false);
-        
-        io.select(); //"XML Structure" tab is selected
+        InputStream is = null;
         try {
-            io.getOut().reset();
-            //Get the InputStream from the EditorCookie:
-            InputStream is = ((org.openide.text.CloneableEditorSupport) editorCookie).getInputStream();
-            //Use the NetBeans org.openide.xml.XMLUtil class to create a org.w3c.dom.Document:
-            JSLint jsLint = new JSLint();
-            List<Issue> issueList = jsLint.lint("TEST", new InputStreamReader(is));
-            io.getOut().println("JSLint execution for "+path+" results in "+issueList.size()+" issues.");
-            for (Issue issue : issueList) {
-                //Print the element and its attributes to the Output window:
-                io.getOut().println(path+":"+issue.getLine()+":"+issue.getCharacter()+" "+issue.getReason(),jlo);
-            }
-            //Close the InputStream:
-            is.close();
+            EditorCookie editorCookie = activatedNodes[0].getLookup().lookup(EditorCookie.class);
+            DataObject dataObject = activatedNodes[0].getLookup().lookup(DataObject.class);
+            String path = (dataObject.getPrimaryFile()).getPath();
+            is = ((org.openide.text.CloneableEditorSupport) editorCookie).getInputStream();
+            JSLintChecker jslc = new JSLintChecker();
+            jslc.checkFromStream(is, path, true);
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
         }
 
     }

@@ -26,10 +26,13 @@ public class PackProjectMenuAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        PalmPreProjectPacker packer = new PalmPreProjectPacker();
         try {
+            PalmPreProjectPacker packer = new PalmPreProjectPacker();
             packer.packProject(project);
         } catch (NotYetConfiguredException ex) {
+            NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
+            DialogDisplayer.getDefault().notify(nd);
+        } catch (Exception ex) {
             NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
             DialogDisplayer.getDefault().notify(nd);
         }
