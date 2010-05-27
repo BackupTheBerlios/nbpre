@@ -8,6 +8,7 @@ import com.barmeier.nbpre.NotYetConfiguredException;
 import com.barmeier.nbpre.PalmPreProject;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.SwingWorker;
 import org.netbeans.api.project.Project;
 import org.netbeans.spi.project.ui.support.MainProjectSensitiveActions;
 import org.netbeans.spi.project.ui.support.ProjectActionPerformer;
@@ -35,14 +36,24 @@ public final class PalmPrePackAppActionPerformer implements ProjectActionPerform
     }
 
     @Override
-    public void perform(Project project) {
-        PalmPreProjectPacker packer = new PalmPreProjectPacker();
-        try {
-            packer.packProject(project);
-        } catch (NotYetConfiguredException ex) {
-            NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
-            DialogDisplayer.getDefault().notify(nd);
-        }
+    public void perform(final Project project) {
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() {
+                try {
+                    PalmPreProjectPacker packer = new PalmPreProjectPacker();
+                    packer.packProject(project);
+                } catch (NotYetConfiguredException ex) {
+                    NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
+                    DialogDisplayer.getDefault().notify(nd);
+                } catch (Exception ex) {
+                    NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
+                    DialogDisplayer.getDefault().notify(nd);
+                }
+                return true;
+            }
+        };
+        worker.execute();
     }
 }
 

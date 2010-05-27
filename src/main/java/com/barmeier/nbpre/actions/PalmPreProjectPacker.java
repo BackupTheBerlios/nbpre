@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 import javax.swing.SwingWorker;
 import org.netbeans.api.project.Project;
 import org.netbeans.api.project.ProjectUtils;
@@ -35,25 +34,23 @@ import org.openide.windows.OutputWriter;
 
 /**
  * Packs a project for Palm Pre. This class uses the palm-package executable
- * configured in the options panel. If a package run is started
+ * configured in the options panel. If a package run is requested the class
+ * checks if the "Run JSLint" option is selected. If yes JSlint will be started
+ * for all JS files and the output will be collected in the JSLint tab.
  * @author barmeier
  */
 public class PalmPreProjectPacker {
-    DataObject dataObject;
-    String fileName;
 
     /**
-     *
-     */
-    public PalmPreProjectPacker() {
-        this.dataObject = null;
-    }
-
-    /**
-     *
-     * @param project
-     * @param executable
-     * @throws NotYetConfiguredException
+     * Runs JSLint for all JS files in a project. The method uses a SwingWorker
+     * to execute JSLint in the backgroun to preserver responsiveness of the
+     * GUI.
+     * After processing all files the "dontLaunchAppOnWarnings" option is
+     * checked to prevent start of packaging if warnings are present.
+     * @param project The project to run JSLint for all containes JS files.
+     * @param executable The program that creates the package.
+     * @throws NotYetConfiguredException This exception is thrown if the user
+     * has not yet configured the path to the executables.
      */
     public void jslintCheck(final Project project, final String executable)  throws NotYetConfiguredException {
         
@@ -108,8 +105,6 @@ public class PalmPreProjectPacker {
     private void executePackProject (Project project, String executable) {
         ProcessBuilder procBuilder;
         Process process;
-        Map<String, String> env;
-//        File currDir;
         List<String> cmd;
         String line;
         InputOutput io;
@@ -147,12 +142,17 @@ public class PalmPreProjectPacker {
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         }
+        finally {
+            outputWriter.close();
+        }
     }
 
     /**
-     *
-     * @param project
-     * @throws NotYetConfiguredException
+     * Entry to initiate packaging. The method checks if "runJSLint" is set. If
+     * yes the JSLint is applied to all JS files in the project.
+     * @param project the project that will packed in this method
+     * @throws NotYetConfiguredException This exception is thrown if the user
+     * has not yet configured the path to the executables.
      */
     public void packProject(Project project) throws NotYetConfiguredException {
 

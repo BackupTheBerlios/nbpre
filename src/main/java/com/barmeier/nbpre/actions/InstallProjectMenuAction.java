@@ -4,9 +4,9 @@
  */
 package com.barmeier.nbpre.actions;
 
-import com.barmeier.nbpre.NotYetConfiguredException;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import javax.swing.SwingWorker;
 import org.netbeans.api.project.Project;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -26,10 +26,19 @@ public class InstallProjectMenuAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        PalmPreProjectInstaller installer = new PalmPreProjectInstaller();
         try {
-            installer.installProject(project);
-        } catch (NotYetConfiguredException ex) {
+            SwingWorker worker = new SwingWorker() {
+                @Override
+                protected Object doInBackground() throws Exception {
+                    PalmPreProjectPacker packer = new PalmPreProjectPacker();
+                    packer.packProject(project);
+                    PalmPreProjectInstaller installer = new PalmPreProjectInstaller();
+                    installer.installProject(project);
+                    return true;
+                }
+            };
+            worker.execute();
+        } catch (/*NotYetConfigured*/Exception ex) {
             NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
             DialogDisplayer.getDefault().notify(nd);
         }

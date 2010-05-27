@@ -8,6 +8,7 @@ import com.barmeier.nbpre.NotYetConfiguredException;
 import com.barmeier.nbpre.PalmPreProject;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.SwingWorker;
 import org.netbeans.api.project.Project;
 import org.netbeans.spi.project.ui.support.MainProjectSensitiveActions;
 import org.netbeans.spi.project.ui.support.ProjectActionPerformer;
@@ -35,14 +36,29 @@ public final class PalmPreLaunchAppActionPerformer implements ProjectActionPerfo
     }
 
     @Override
-    public void perform(Project project) {
-        PalmPreAppLauncher launcher = new PalmPreAppLauncher();
-        try {
-            launcher.launchApp(project);
-        } catch (NotYetConfiguredException ex) {
-            NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
-            DialogDisplayer.getDefault().notify(nd);
-        }
+    public void perform(final Project project) {
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() {
+                try {
+                    PalmPreProjectPacker packer = new PalmPreProjectPacker();
+                    packer.packProject(project);
+                    //Install App
+                    PalmPreProjectInstaller pppi = new PalmPreProjectInstaller();
+                    pppi.installProject(project);                    
+                    PalmPreAppLauncher launcher = new PalmPreAppLauncher();
+                    launcher.launchApp(project);
+                } catch (NotYetConfiguredException ex) {
+                    NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
+                    DialogDisplayer.getDefault().notify(nd);
+                } catch (Exception ex) {
+                    NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
+                    DialogDisplayer.getDefault().notify(nd);
+                }
+                return true;
+            }
+        };
+        worker.execute();
     }
 }
 

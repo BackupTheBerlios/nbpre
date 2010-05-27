@@ -53,13 +53,6 @@ public class PalmPreAppLauncher {
 
         LifecycleManager.getDefault().saveAll();
 
-        // Pack App
-        PalmPreProjectPacker pppp = new PalmPreProjectPacker();
-        pppp.packProject(project);
-
-        //Install App
-        PalmPreProjectInstaller pppi = new PalmPreProjectInstaller();
-        pppi.installProject(project);
 
         // First we check if everything is in place and reachable
         String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("launcher", "");

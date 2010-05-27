@@ -41,8 +41,6 @@ public class PalmPreLogicalView implements LogicalViewProvider {
     public org.openide.nodes.Node createLogicalView() {
         try {
             //Get the Text directory, creating if deleted
-//            FileObject text = project.getAppFolder(true);
-
             FileObject text = project.getProjectDirectory();
 
             //Get the DataObject that represents it
@@ -111,18 +109,6 @@ public class PalmPreLogicalView implements LogicalViewProvider {
         public String getDisplayName() {
             return project.getProjectDirectory().getName();
         }
-//
-//        private class MyAction extends AbstractAction {
-//
-//            public MyAction() {
-//                putValue(NAME, "Do Something");
-//            }
-//
-//            public void actionPerformed(ActionEvent e) {
-//                //APIObject obj = getLookup().lookup(APIObject.class);
-//                JOptionPane.showMessageDialog(null, "Hello from "+project.getProjectDirectory().getPath());
-//            }
-//        }
     }
 
     @Override
