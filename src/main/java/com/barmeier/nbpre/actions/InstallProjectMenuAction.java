@@ -20,7 +20,7 @@ public class InstallProjectMenuAction extends AbstractAction {
     Project project;
 
     public InstallProjectMenuAction(Project project) {
-        putValue(NAME, "Install project");
+        putValue(NAME, "Install App");
         this.project = project;
     }
 

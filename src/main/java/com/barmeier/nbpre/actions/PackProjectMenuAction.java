@@ -21,7 +21,7 @@ public class PackProjectMenuAction extends AbstractAction {
     Project project;
 
     public PackProjectMenuAction(Project project) {
-        putValue(NAME, "Pack project");
+        putValue(NAME, "Pack App");
         this.project = project;
     }
 

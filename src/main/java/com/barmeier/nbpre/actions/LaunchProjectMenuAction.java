@@ -21,7 +21,7 @@ public class LaunchProjectMenuAction extends AbstractAction {
     Project project;
 
     public LaunchProjectMenuAction(Project project) {
-        putValue(NAME, "Launch project");
+        putValue(NAME, "Launch App");
         this.project = project;
     }
 
