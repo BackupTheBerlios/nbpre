@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.barmeier.nbpre.actions;
 
 import com.barmeier.nbpre.NotYetConfiguredException;
@@ -52,57 +51,35 @@ public class PalmPreProjectPacker {
      * @throws NotYetConfiguredException This exception is thrown if the user
      * has not yet configured the path to the executables.
      */
-    public void jslintCheck(final Project project, final String executable)  throws NotYetConfiguredException {
-        
+    public void jslintCheck(final Project project, final String executable) throws NotYetConfiguredException {
 
-        SwingWorker worker = new SwingWorker() {
-            @Override
-            protected Object doInBackground() throws Exception {
-                
-                boolean errors_found = false;
-                boolean clearFlag = true;
-                try {
-                    if (NbPreferences.forModule(PalmSDKSettingsPanel.class).getBoolean("runJSLint", true)) {
-                        JSLintChecker jslc = new JSLintChecker();
-                        Sources sources = ProjectUtils.getSources(project);
-                        for (SourceGroup sourceGroup : sources.getSourceGroups(Sources.TYPE_GENERIC)) {
-                            FileObject rootFolder = sourceGroup.getRootFolder();
-                            // notice the boolean parameter, that gives an enumerator which iterates recursively
-                            Enumeration<? extends FileObject> children = rootFolder.getChildren(true);
-                            while (children.hasMoreElements()) {
-                                FileObject next = children.nextElement();
-                                if (!next.isFolder() && next.getExt().equalsIgnoreCase("js")) {
-                                    System.out.println(next.getPath());
-                                    DataObject dataObject = DataObject.find(next);
-                                    errors_found = jslc.checkProjectFiles(dataObject,clearFlag) || errors_found;
-                                    clearFlag=false;
-                                }
-                            }
+        boolean errors_found = false;
+        boolean clearFlag = true;
+        try {
+            if (NbPreferences.forModule(PalmSDKSettingsPanel.class).getBoolean("runJSLint", true)) {
+                JSLintChecker jslc = new JSLintChecker();
+                Sources sources = ProjectUtils.getSources(project);
+                for (SourceGroup sourceGroup : sources.getSourceGroups(Sources.TYPE_GENERIC)) {
+                    FileObject rootFolder = sourceGroup.getRootFolder();
+                    // notice the boolean parameter, that gives an enumerator which iterates recursively
+                    Enumeration<? extends FileObject> children = rootFolder.getChildren(true);
+                    while (children.hasMoreElements()) {
+                        FileObject next = children.nextElement();
+                        if (!next.isFolder() && next.getExt().equalsIgnoreCase("js")) {
+                            System.out.println(next.getPath());
+                            DataObject dataObject = DataObject.find(next);
+                            errors_found = jslc.checkProjectFiles(dataObject, clearFlag) || errors_found;
+                            clearFlag = false;
                         }
                     }
-                } catch (IOException ex) {
-                    Exceptions.printStackTrace(ex);
-                } 
-                return errors_found;
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    if (!(Boolean)get() || !NbPreferences.forModule(PalmSDKSettingsPanel.class).getBoolean("dontLaunchAppOnWarnings", true)) {
-                        executePackProject(project, executable);
-                    }
-                } catch (Exception ex) {
-                    NotifyDescriptor nd = new NotifyDescriptor.Message(ex.getMessage());
-                    DialogDisplayer.getDefault().notify(nd);
                 }
             }
-        };
-        worker.execute();        
-        
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
     }
 
-    private void executePackProject (Project project, String executable) {
+    private void executePackProject(Project project, String executable) {
         ProcessBuilder procBuilder;
         Process process;
         List<String> cmd;
@@ -141,8 +118,7 @@ public class PalmPreProjectPacker {
             // TODO: close outputwriter
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
-        }
-        finally {
+        } finally {
             outputWriter.close();
         }
     }
@@ -161,20 +137,18 @@ public class PalmPreProjectPacker {
         File executable = new File(filename);
         if (!executable.exists() || !executable.canExecute()) {
 
-            throw new NotYetConfiguredException("The palm-pack executable " +
-                    "is not executable or cannot be found.\n Pleas check " +
-                    "permissions and location of the file.\n Actually " +
-                    "configured is: ["+filename+"]\n\n You can change this " +
-                    "in the Toole menu under\n" +
-                    "Tools->Options->Miscellaneous->PalmSDK.");
+            throw new NotYetConfiguredException("The palm-pack executable "
+                    + "is not executable or cannot be found.\n Pleas check "
+                    + "permissions and location of the file.\n Actually "
+                    + "configured is: [" + filename + "]\n\n You can change this "
+                    + "in the Toole menu under\n"
+                    + "Tools->Options->Miscellaneous->PalmSDK.");
         }
 
         if (NbPreferences.forModule(PalmSDKSettingsPanel.class).getBoolean("runJSLint", true)) {
             jslintCheck(project, filename);
-        }
-        else {
-            executePackProject(project, filename);
-        }
+        } 
+        executePackProject(project, filename);
+        
     }
-
 }

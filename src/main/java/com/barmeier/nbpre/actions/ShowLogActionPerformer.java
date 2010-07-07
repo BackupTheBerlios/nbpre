@@ -72,6 +72,8 @@ public final class ShowLogActionPerformer implements ProjectActionPerformer {
         ExecutionService service = ExecutionService.newService(processBuilder, ed, "palm log");
         Future<Integer> task = service.run();
 
+//*** outputlistener für errormeldungen im applikationslog
+
     }
 }
 

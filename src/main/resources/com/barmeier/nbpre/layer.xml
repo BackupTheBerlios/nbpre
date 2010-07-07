@@ -80,17 +80,17 @@
                 <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-PalmPreLaunchAction.instance"/>
                 <attr name="position" intvalue="64"/>
             </file>
+            <file name="com-barmeier-nbpre-actions-ShowLogAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-ShowLogAction.instance"/>
+                <attr name="position" intvalue="96"/>
+            </file>
             <file name="SeparatorAfterModelToolbarActions.instance">
                 <attr name="instanceClass" stringvalue="com.barmeier.nbpre.utils.Separator"/>
-                <attr name="position" intvalue="96"/>
+                <attr name="position" intvalue="128"/>
             </file>
 
             <file name="com-barmeier-nbpre-actions-StartEmulatorAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-StartEmulatorAction.instance"/>
-                <attr name="position" intvalue="128"/>
-            </file>
-            <file name="com-barmeier-nbpre-actions-ShowLogAction.shadow">
-                <attr name="originalFile" stringvalue="Actions/Project/com-barmeier-nbpre-actions-ShowLogAction.instance"/>
                 <attr name="position" intvalue="160"/>
             </file>
         </folder>

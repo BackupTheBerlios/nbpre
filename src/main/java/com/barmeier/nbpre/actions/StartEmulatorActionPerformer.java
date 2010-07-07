@@ -4,11 +4,8 @@
  */
 package com.barmeier.nbpre.actions;
 
-import com.barmeier.nbpre.PalmPreProject;
-import com.barmeier.nbpre.PalmPreProjectFactory;
 import com.barmeier.nbpre.VMSelector;
 import com.barmeier.nbpre.options.PalmSDKSettingsPanel;
-import com.barmeier.nbpre.utils.ApplicationProperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -57,7 +54,7 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
 
     @Override
     public boolean enable(Project project) {
-        return org.netbeans.api.project.ui.OpenProjects.getDefault().getMainProject() instanceof PalmPreProject && !isRunning;
+        return !isRunning;
 
     }
 
@@ -80,8 +77,6 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
             return false;
         }
         return true;
-
-
     }
 
     @Override
@@ -106,10 +101,8 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
             DialogDisplayer.getDefault().notify(nd);
             return;
         }
-        FileObject projectRoot = project.getProjectDirectory();
-        FileObject appInfo = projectRoot.getFileObject(PalmPreProjectFactory.APP_INFO_FILE);
-        final ApplicationProperties app = new ApplicationProperties(appInfo.getPath());
 
+        
         final ArrayList<String> al = new ArrayList<String>();
         final InputProcessorFactory ipf = new InputProcessorFactory() {
 
@@ -135,7 +128,7 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
             }
         };
 
-        InputOutput io = IOProvider.getDefault().getIO("Palm Log for <" + app.getId() + ">", true);
+        InputOutput io = IOProvider.getDefault().getIO("Palm Log for <VM>", true);
         ExecutionDescriptor ed = new ExecutionDescriptor().inputOutput(io).frontWindow(true).outProcessorFactory(ipf).controllable(true);
 
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder(
