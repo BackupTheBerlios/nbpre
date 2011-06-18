@@ -17,27 +17,27 @@ import org.openide.util.NbBundle;
 /**
  * Panel just asking for basic info.
  */
-public class PalmApplicatonWizardPanel implements WizardDescriptor.Panel,
+public class PalmSynergyWizardPanel implements WizardDescriptor.Panel,
         WizardDescriptor.ValidatingPanel, WizardDescriptor.FinishablePanel {
 
     private WizardDescriptor wizardDescriptor;
-    private PalmApplicationPanelVisual component;
+    private PalmSynergyPanelVisual component;
 
-    public PalmApplicatonWizardPanel() {
+    public PalmSynergyWizardPanel() {
     }
 
     @Override
     public Component getComponent() {
         if (component == null) {
-            component = new PalmApplicationPanelVisual(this);
-            component.setName(NbBundle.getMessage(PalmApplicatonWizardPanel.class, "LBL_CreateProjectStep"));
+            component = new PalmSynergyPanelVisual(this);
+            component.setName(NbBundle.getMessage(PalmSynergyWizardPanel.class, "LBL_CreateProjectStep"));
         }
         return component;
     }
 
     @Override
     public HelpCtx getHelp() {
-        return new HelpCtx(PalmApplicatonWizardPanel.class);
+        return new HelpCtx(PalmSynergyWizardPanel.class);
     }
 
     @Override

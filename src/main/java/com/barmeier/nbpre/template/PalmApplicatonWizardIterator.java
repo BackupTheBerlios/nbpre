@@ -47,12 +47,13 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
 
     private WizardDescriptor.Panel[] createPanels() {
         return new WizardDescriptor.Panel[]{
-                    new PalmApplicatonWizardPanel(),};
+                    new PalmApplicatonWizardPanel(),new PalmSynergyWizardPanel(),};
     }
 
     private String[] createSteps() {
         return new String[]{
-                    NbBundle.getMessage(PalmApplicatonWizardIterator.class, "LBL_CreateProjectStep")
+                    NbBundle.getMessage(PalmApplicatonWizardIterator.class, "LBL_CreateProjectStep"),
+                    NbBundle.getMessage(PalmApplicatonWizardIterator.class, "LBL_CreateProjectStep"),
                 };
     }
 
@@ -67,7 +68,8 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
 
         PalmGenerateProject.generateProject ((String)wiz.getProperty("projid"),
                 (String)wiz.getProperty("projversion"), (String)wiz.getProperty("vendorid"),
-                (String)wiz.getProperty("projtitle"), dirF.getPath());
+                (String)wiz.getProperty("projtitle"), (Boolean)wiz.getProperty("synergyProject"),
+                (String)wiz.getProperty("name"), dirF.getPath());
         
         // Always open top dir as a project:
         resultSet.add(dir);
@@ -128,6 +130,7 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
                 new Object[]{new Integer(index + 1), new Integer(panels.length)});
     }
 
+    @Override
     public boolean hasNext() {
         return index < panels.length - 1;
     }

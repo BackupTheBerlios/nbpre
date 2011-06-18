@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -32,36 +32,46 @@ public class PalmGenerateProject {
         this.dataObject = null;
     }
 
-    public static void generateProject(String id, String version, String vendor, String title, String projectPath) {
+    public static void generateProject(String id, String version, String vendor,
+            String title, Boolean isSynergyProject, String projectName,
+            String projectPath) {
+
         ProcessBuilder procBuilder;
         Process process;
         Map<String, String> env;
         List<String> cmd;
         String line;
-
+        String projectCreationPath=projectPath;
+        
+        
+        if (isSynergyProject) {
+            projectCreationPath=projectCreationPath+"/"+projectName;
+            new File(projectCreationPath).mkdirs();
+        }
+        
         // First we check if everything is in place and reachable
         String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("generator", "");
         File executable = new File(filename);
         if (!executable.exists() || !executable.canExecute()) {
 
-            NotifyDescriptor nd = new NotifyDescriptor.Message("The palm-generator executable " +
-                    "is not executable or cannot be found.\n Pleas check " +
-                    "permissions and location of the file.\n Actually " +
-                    "configured is: ["+filename+"]\n\n You can change this " +
-                    "in the Toole menu under\n" +
-                    "Tools->Options->Miscellaneous->PalmSDK.");
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The palm-generator executable "
+                    + "is not executable or cannot be found.\n Pleas check "
+                    + "permissions and location of the file.\n Actually "
+                    + "configured is: [" + filename + "]\n\n You can change this "
+                    + "in the Toole menu under\n"
+                    + "Tools->Options->Miscellaneous->PalmSDK.");
             DialogDisplayer.getDefault().notify(nd);
             return;
         }
-        
+
         // construct the SWI Prolog process command
-        //palm-generate -p "{id:com.mystuff.hello, version:'2.1', vendor:'My Stuff', title:'Hello There'}"
+        // palm-generate -p "{id:com.mystuff.hello, version:'2.1', vendor:'My Stuff', title:'Hello There'}"
         cmd = new ArrayList<String>();
         cmd.add(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("generator", ""));
         cmd.add("-p");
         cmd.add("{id:" + id + ", version:'" + version + "', vendor:'"
                 + vendor + "', title:'" + title + "'}");
-        cmd.add(projectPath);
+        cmd.add(projectCreationPath);
 
         procBuilder = new ProcessBuilder(cmd);
         procBuilder.redirectErrorStream(true);
@@ -77,6 +87,12 @@ public class PalmGenerateProject {
             // TODO: close outputwriter
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
+        }
+        
+        if (isSynergyProject) {
+            new File(projectPath+"/"+projectName+".service").mkdir();
+            new File(projectPath+"/"+projectName+".package").mkdir();
+            new File(projectPath+"/"+projectName+".accts").mkdir();
         }
     }
 }

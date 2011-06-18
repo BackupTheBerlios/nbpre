@@ -40,6 +40,8 @@ import org.openide.windows.InputOutput;
 public final class StartEmulatorActionPerformer implements ProjectActionPerformer, ActionListener {
 
     private static boolean isRunning = false;
+    private static  Future<Integer> vmTask=null;
+
     private VMSelector vms;
 
     public static Action createInstance(FileObject o) {
@@ -54,7 +56,8 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
 
     @Override
     public boolean enable(Project project) {
-        return !isRunning;
+
+        return (vmTask==null) || !vmTask.isDone();
 
     }
 
@@ -134,6 +137,7 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder(
                 filename).addArgument("list").
                 addArgument("vms");
+
         ExecutionService service = ExecutionService.newService(processBuilder, ed, "palm vm");
         Future<Integer> task = service.run();
         try {
@@ -164,7 +168,7 @@ public final class StartEmulatorActionPerformer implements ProjectActionPerforme
                     filename).addArgument("--startvm").addArgument(x);
             System.out.println(filename +" "+"--startvm \""+x+"\"" );
             ExecutionService service = ExecutionService.newService(processBuilder, ed, "palm vm");
-            Future<Integer> task = service.run();
+            vmTask = service.run();
 //            try {
 //                task.get();
 //            } catch (InterruptedException ex) {

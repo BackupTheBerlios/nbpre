@@ -5,6 +5,7 @@
 package com.barmeier.nbpre.actions;
 
 import com.barmeier.nbpre.NotYetConfiguredException;
+import com.barmeier.nbpre.PalmPreProject;
 import com.barmeier.nbpre.options.PalmSDKSettingsPanel;
 import com.barmeier.nbpre.utils.JSLintChecker;
 import java.io.BufferedReader;
@@ -15,14 +16,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import javax.swing.SwingWorker;
 import org.netbeans.api.project.Project;
 import org.netbeans.api.project.ProjectUtils;
 import org.netbeans.api.project.SourceGroup;
 import org.netbeans.api.project.Sources;
-import org.openide.DialogDisplayer;
 import org.openide.LifecycleManager;
-import org.openide.NotifyDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObject;
 import org.openide.util.Exceptions;
@@ -100,7 +98,24 @@ public class PalmPreProjectPacker {
         cmd.add(executable);
         cmd.add("-o");
         cmd.add(projectPath);
-        cmd.add(projectPath);
+        
+        if (NbPreferences.forModule(PalmPreProject.class).getBoolean("isSynergyProject",false)) {
+            File dir = new File(projectPath);
+            File[] subdir = dir.listFiles();
+            if (subdir == null) {
+                // Either dir does not exist or is not a directory
+            } else {
+                for (int i=0; i<subdir.length; i++) {
+                    // Get filename of file or directory
+                    if (subdir[i].isDirectory()) {
+                        cmd.add(projectPath);
+                    }
+                }
+            }
+        }
+        else {
+            cmd.add(projectPath);            
+        }
 
         procBuilder = new ProcessBuilder(cmd);
         procBuilder.redirectErrorStream(true);

@@ -18,12 +18,12 @@ import org.openide.WizardValidationException;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.NbPreferences;
 
-public class PalmApplicatonPanelVisual extends JPanel implements DocumentListener {
+public class PalmApplicationPanelVisual extends JPanel implements DocumentListener {
 
     public static final String PROP_PROJECT_NAME = "projectName";
     private PalmApplicatonWizardPanel panel;
 
-    public PalmApplicatonPanelVisual(PalmApplicatonWizardPanel panel) {
+    public PalmApplicationPanelVisual(PalmApplicatonWizardPanel panel) {
         initComponents();
         this.panel = panel;
         // Register listener on the textFields to make the automatic updates
@@ -58,15 +58,16 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
         vendorIdTextField = new javax.swing.JTextField();
         projectTitleLabel = new javax.swing.JLabel();
         projectTitleTextField = new javax.swing.JTextField();
+        synergyProject = new javax.swing.JCheckBox();
 
         projectNameLabel.setLabelFor(projectNameTextField);
-        org.openide.awt.Mnemonics.setLocalizedText(projectNameLabel, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectNameLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(projectNameLabel, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectNameLabel.text")); // NOI18N
 
         projectLocationLabel.setLabelFor(projectLocationTextField);
-        org.openide.awt.Mnemonics.setLocalizedText(projectLocationLabel, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectLocationLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(projectLocationLabel, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectLocationLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(browseButton, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.browseButton.text")); // NOI18N
-        browseButton.setActionCommand(org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.browseButton.actionCommand")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(browseButton, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.browseButton.text")); // NOI18N
+        browseButton.setActionCommand(org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.browseButton.actionCommand")); // NOI18N
         browseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseButtonActionPerformed(evt);
@@ -74,32 +75,39 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
         });
 
         createdFolderLabel.setLabelFor(createdFolderTextField);
-        org.openide.awt.Mnemonics.setLocalizedText(createdFolderLabel, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.createdFolderLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(createdFolderLabel, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.createdFolderLabel.text")); // NOI18N
 
         createdFolderTextField.setEditable(false);
 
         projectVersionLabel.setDisplayedMnemonic('V');
-        org.openide.awt.Mnemonics.setLocalizedText(projectVersionLabel, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectVersionLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(projectVersionLabel, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectVersionLabel.text")); // NOI18N
 
-        projectVersionTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectVersionTextField.text")); // NOI18N
+        projectVersionTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectVersionTextField.text")); // NOI18N
 
-        projectIdTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectIdTextField.text")); // NOI18N
+        projectIdTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectIdTextField.text")); // NOI18N
 
         projectIdabel.setDisplayedMnemonic('I');
-        org.openide.awt.Mnemonics.setLocalizedText(projectIdabel, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectIdabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(projectIdabel, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectIdabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(vendorIdLabel, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.vendorIdLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(vendorIdLabel, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.vendorIdLabel.text")); // NOI18N
 
-        vendorIdTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.vendorIdTextField.text")); // NOI18N
+        vendorIdTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.vendorIdTextField.text")); // NOI18N
         vendorIdTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vendorIdTextFieldActionPerformed(evt);
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(projectTitleLabel, org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectTitleLabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(projectTitleLabel, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectTitleLabel.text")); // NOI18N
 
-        projectTitleTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicatonPanelVisual.class, "PalmApplicatonPanelVisual.projectTitleTextField.text")); // NOI18N
+        projectTitleTextField.setText(org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.projectTitleTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(synergyProject, org.openide.util.NbBundle.getMessage(PalmApplicationPanelVisual.class, "PalmApplicationPanelVisual.synergyProject.text")); // NOI18N
+        synergyProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                synergyProjectActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,20 +126,24 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(projectNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(projectLocationTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(createdFolderTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(browseButton)
+                        .addComponent(synergyProject)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(projectTitleTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(vendorIdTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(projectVersionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(projectIdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-                        .addGap(87, 87, 87))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(projectNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(projectLocationTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(createdFolderTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(browseButton)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(projectTitleTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(vendorIdTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(projectVersionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(projectIdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                            .addGap(87, 87, 87)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +177,9 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(projectTitleLabel)
                     .addComponent(projectTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(synergyProject)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -196,6 +210,10 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
         // TODO add your handling code here:
     }//GEN-LAST:event_vendorIdTextFieldActionPerformed
 
+    private void synergyProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_synergyProjectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_synergyProjectActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseButton;
     private javax.swing.JLabel createdFolderLabel;
@@ -210,6 +228,7 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
     private javax.swing.JTextField projectTitleTextField;
     private javax.swing.JLabel projectVersionLabel;
     private javax.swing.JTextField projectVersionTextField;
+    private javax.swing.JCheckBox synergyProject;
     private javax.swing.JLabel vendorIdLabel;
     private javax.swing.JTextField vendorIdTextField;
     // End of variables declaration//GEN-END:variables
@@ -278,6 +297,7 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
         d.putProperty("projid", projectId);
         d.putProperty("vendorid", vendorId);
         d.putProperty("projtitle", projectTitle);
+        d.putProperty("synergyProject", synergyProject.isSelected());
 
     }
 
@@ -297,6 +317,13 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
         this.vendorIdTextField.setText(NbPreferences.forModule(PalmSDKSettingsPanel.class).get("vendorId", ""));
         this.projectNameTextField.setText(projectName);
         this.projectNameTextField.selectAll();
+        
+        
+        Boolean isSelected = (Boolean)settings.getProperty("synergyProject");
+        if (isSelected == null) {
+            isSelected=false;
+        }
+        this.synergyProject.setSelected(isSelected);
     }
 
     void validate(WizardDescriptor d) throws WizardValidationException {
@@ -323,6 +350,7 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
     }
 
     // Implementation of DocumentListener --------------------------------------
+    @Override
     public void changedUpdate(DocumentEvent e) {
         updateTexts(e);
         if (this.projectNameTextField.getDocument() == e.getDocument()) {
@@ -330,6 +358,7 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
         }
     }
 
+    @Override
     public void insertUpdate(DocumentEvent e) {
         updateTexts(e);
         if (this.projectNameTextField.getDocument() == e.getDocument()) {
@@ -337,6 +366,7 @@ public class PalmApplicatonPanelVisual extends JPanel implements DocumentListene
         }
     }
 
+    @Override
     public void removeUpdate(DocumentEvent e) {
         updateTexts(e);
         if (this.projectNameTextField.getDocument() == e.getDocument()) {
