@@ -34,11 +34,13 @@ public class PalmPreProject implements Project {
 
     private final FileObject projectDir;
     private final ProjectState state;
+    private boolean synergyProject=false;
     private Lookup lkp;
 
-    public PalmPreProject(FileObject projectDir, ProjectState state) {
+    public PalmPreProject(FileObject projectDir, ProjectState state, boolean synergyProject) {
         this.projectDir = projectDir;
         this.state = state;
+        this.synergyProject=synergyProject;
     }
 
     @Override
@@ -73,6 +75,13 @@ public class PalmPreProject implements Project {
                     });
         }
         return lkp;
+    }
+
+    /**
+     * @return the synergyProject
+     */
+    public boolean isSynergyProject() {
+        return synergyProject;
     }
 
     private final class ActionProviderImpl implements ActionProvider {
@@ -161,8 +170,14 @@ public class PalmPreProject implements Project {
 
         @Override
         public Icon getIcon() {
-            return new ImageIcon(ImageUtilities.loadImage(
-                    "com/barmeier/nbpre/images/icon.png"));
+            if (isSynergyProject()) {
+                return new ImageIcon(ImageUtilities.loadImage(
+                        "com/barmeier/nbpre/images/synicon.png"));
+            }
+            else {
+                return new ImageIcon(ImageUtilities.loadImage(
+                        "com/barmeier/nbpre/images/icon.png"));
+            }
         }
 
         @Override

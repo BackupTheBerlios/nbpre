@@ -97,7 +97,12 @@ public class PalmPreLogicalView implements LogicalViewProvider {
 
         @Override
         public Image getIcon(int type) {
-            return ImageUtilities.loadImage("com/barmeier/nbpre/images/icon.png");
+            if (project.isSynergyProject()) {
+                return ImageUtilities.loadImage("com/barmeier/nbpre/images/synicon.png");
+            }
+            else {
+                return ImageUtilities.loadImage("com/barmeier/nbpre/images/icon.png");
+            }
         }
 
         @Override

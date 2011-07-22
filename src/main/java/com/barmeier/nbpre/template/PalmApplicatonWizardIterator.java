@@ -4,6 +4,7 @@
  */
 package com.barmeier.nbpre.template;
 
+import com.barmeier.nbpre.options.PalmSDKSettingsPanel;
 import java.awt.Component;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,11 +22,14 @@ import javax.swing.JComponent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.spi.project.ui.support.ProjectChooser;
 import org.netbeans.spi.project.ui.templates.support.Templates;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.WizardDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
 import org.openide.util.NbBundle;
+import org.openide.util.NbPreferences;
 import org.openide.xml.XMLUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -69,30 +73,35 @@ public class PalmApplicatonWizardIterator implements WizardDescriptor./*Progress
         PalmGenerateProject.generateProject ((String)wiz.getProperty("projid"),
                 (String)wiz.getProperty("projversion"), (String)wiz.getProperty("vendorid"),
                 (String)wiz.getProperty("projtitle"), (Boolean)wiz.getProperty("synergyProject"),
-                (String)wiz.getProperty("name"), dirF.getPath());
+                (String)wiz.getProperty("name"), dirF.getPath(), (String)wiz.getProperty("templateId"));
         
-        // Always open top dir as a project:
         resultSet.add(dir);
-        // Look for nested projects to open as well:
-//        Enumeration<? extends FileObject> e = dir.getFolders(true);
-//        while (e.hasMoreElements()) {
-//            FileObject subfolder = e.nextElement();
-//            if (ProjectManager.getDefault().isProject(subfolder)) {
-//                resultSet.add(subfolder);
-//            }
-//        }
 
         File parent = dirF.getParentFile();
         if (parent != null && parent.exists()) {
             ProjectChooser.setProjectsFolder(parent);
         }
-
         return resultSet;
     }
 
     @Override
     public void initialize(WizardDescriptor wiz) {
         this.wiz = wiz;
+        // First we check if everything is in place and reachable
+        String filename = NbPreferences.forModule(PalmSDKSettingsPanel.class).get("generator", "");
+        File executable = new File(filename);
+        if (!executable.exists() || !executable.canExecute()) {
+
+            NotifyDescriptor nd = new NotifyDescriptor.Message("The palm-generator executable "
+                    + "is not executable or cannot be found.\n Pleas check "
+                    + "permissions and location of the file.\n Actually "
+                    + "configured is: [" + filename + "]\n\n You can change this "
+                    + "in the Toole menu under\n"
+                    + "Tools->Options->Miscellaneous->PalmSDK.");
+            DialogDisplayer.getDefault().notify(nd);
+            return;
+        }
+
         index = 0;
         panels = createPanels();
         // Make sure list of steps is accurate.

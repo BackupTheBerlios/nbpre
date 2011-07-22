@@ -99,19 +99,25 @@ public class PalmPreProjectPacker {
         cmd.add("-o");
         cmd.add(projectPath);
         
-        if (NbPreferences.forModule(PalmPreProject.class).getBoolean("isSynergyProject",false)) {
-            File dir = new File(projectPath);
-            File[] subdir = dir.listFiles();
-            if (subdir == null) {
-                // Either dir does not exist or is not a directory
-            } else {
-                for (int i=0; i<subdir.length; i++) {
-                    // Get filename of file or directory
-                    if (subdir[i].isDirectory()) {
-                        cmd.add(projectPath);
-                    }
-                }
-            }
+        if (((PalmPreProject)project).isSynergyProject()) {
+//            File dir = new File(projectPath);
+//            File[] subdir = dir.listFiles();
+//            if (subdir == null) {
+//                // Either dir does not exist or is not a directory
+//            } else {
+//                for (int i=0; i<subdir.length; i++) {
+//                    // Get filename of file or directory
+//                    if (subdir[i].isDirectory()) {
+//                        cmd.add(subdir[i].getAbsolutePath());
+//                    }
+//                }
+//            }            
+            
+            String baseName = new File(projectPath).getName();
+            cmd.add(projectPath+"/"+baseName);
+            cmd.add(projectPath+"/"+baseName+".service");
+            cmd.add(projectPath+"/"+baseName+".package");
+            cmd.add(projectPath+"/"+baseName+".accts");
         }
         else {
             cmd.add(projectPath);            

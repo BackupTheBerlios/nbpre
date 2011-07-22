@@ -9,20 +9,23 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import org.openide.WizardDescriptor;
 import org.openide.WizardValidationException;
 import org.openide.filesystems.FileUtil;
 
 public class PalmSynergyPanelVisual extends JPanel implements DocumentListener {
-
+    
+    public static final String PROP_TEMPLATE_ID = "templateId";
     private PalmSynergyWizardPanel panel;
 
     public PalmSynergyPanelVisual(PalmSynergyWizardPanel panel) {
         initComponents();
         this.panel = panel;
         // Register listener on the textFields to make the automatic updates
-//        templateIdTextField.getDocument().addDocumentListener(this);
-//        icon48TextField.getDocument().addDocumentListener(this);
+        templateIdTextField.getDocument().addDocumentListener(this);
+        icon32TextField.getDocument().addDocumentListener(this);
+        icon48TextField.getDocument().addDocumentListener(this);
     }
 
     /** This method is called from within the constructor to
@@ -66,8 +69,6 @@ public class PalmSynergyPanelVisual extends JPanel implements DocumentListener {
         icon32Label.setLabelFor(icon32TextField);
         org.openide.awt.Mnemonics.setLocalizedText(icon32Label, org.openide.util.NbBundle.getMessage(PalmSynergyPanelVisual.class, "PalmSynergyPanelVisual.icon32Label.text")); // NOI18N
 
-        icon32TextField.setEditable(false);
-
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         org.openide.awt.Mnemonics.setLocalizedText(contactsCheckBox, org.openide.util.NbBundle.getMessage(PalmSynergyPanelVisual.class, "PalmSynergyPanelVisual.contactsCheckBox.text")); // NOI18N
@@ -101,7 +102,7 @@ public class PalmSynergyPanelVisual extends JPanel implements DocumentListener {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(contactsCheckBox)
                             .addComponent(tasksCheckBox))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(memoCheckBox)
                             .addComponent(calendarCheckBox)))
@@ -246,29 +247,47 @@ public class PalmSynergyPanelVisual extends JPanel implements DocumentListener {
 
         if (templateIdTextField.getText().length() == 0) {
             // TODO if using org.openide.dialogs >= 7.8, can use WizardDescriptor.PROP_ERROR_MESSAGE:
-            wizardDescriptor.putProperty("WizardPanel_errorMessage",
+            wizardDescriptor.putProperty(WizardDescriptor.PROP_ERROR_MESSAGE,
                     "The template id is not optional. Please use a dot notation.");
             return false; // Display name not specified
         }
         File f = FileUtil.normalizeFile(new File(icon48TextField.getText()).getAbsoluteFile());
         if (!f.isFile()) {
-            String message = "Icon image is not a valid filename.";
-            wizardDescriptor.putProperty("WizardPanel_errorMessage", message);
+            String message = "Icon 48px image is not a valid filename.";
+            wizardDescriptor.putProperty(WizardDescriptor.PROP_ERROR_MESSAGE, message);
             return false;
         }
 
         f = FileUtil.normalizeFile(new File(icon32TextField.getText()).getAbsoluteFile());
 
         if (!f.isFile()) {
-            String message = "Icon image is not a valid filename.";
-            wizardDescriptor.putProperty("WizardPanel_errorMessage", message);
+            String message = "Icon 32px image is not a valid filename.";
+            wizardDescriptor.putProperty(WizardDescriptor.PROP_ERROR_MESSAGE, message);
             return false;
         }
 
-        wizardDescriptor.putProperty("WizardPanel_errorMessage", "");
+        wizardDescriptor.putProperty(WizardDescriptor.PROP_ERROR_MESSAGE, "");
         return true;
     }
 
+    String getText(String text) {
+        if (text==null) {
+            return "";
+        }
+        else {
+            return text;
+        }
+    }
+    
+    Boolean getBool(Boolean value) {
+        if (value==null) {
+            return false;
+        }
+        else {
+            return value;
+        }
+    }
+    
     void store(WizardDescriptor d) {
         String templateId = templateIdTextField.getText().trim();
         String icon48 = icon48TextField.getText().trim();
@@ -290,38 +309,60 @@ public class PalmSynergyPanelVisual extends JPanel implements DocumentListener {
     }
 
     void read(WizardDescriptor settings) {
-        templateIdTextField.setText((String)settings.getProperty("templateId"));
-        icon48TextField.setText((String)settings.getProperty("icon32"));
-        icon32TextField.setText((String)settings.getProperty("icon48"));
-        contactsCheckBox.setSelected((Boolean)settings.getProperty("contactCaps"));
-        calendarCheckBox.setSelected((Boolean)settings.getProperty("calendarCaps"));
-        tasksCheckBox.setSelected((Boolean)settings.getProperty("tasksCaps"));
-        memoCheckBox.setSelected((Boolean)settings.getProperty("memoCaps"));
-        messagingCheckBox.setSelected((Boolean)settings.getProperty("messagingCaps"));
+        templateIdTextField.setText(getText((String)settings.getProperty("templateId")));
+        icon48TextField.setText(getText((String)settings.getProperty("icon32")));
+        icon32TextField.setText(getText((String)settings.getProperty("icon48")));
+        contactsCheckBox.setSelected(getBool((Boolean)settings.getProperty("contactCaps")));
+        calendarCheckBox.setSelected(getBool((Boolean)settings.getProperty("calendarCaps")));
+        tasksCheckBox.setSelected(getBool((Boolean)settings.getProperty("tasksCaps")));
+        memoCheckBox.setSelected(getBool((Boolean)settings.getProperty("memoCaps")));
+        messagingCheckBox.setSelected(getBool((Boolean)settings.getProperty("messagingCaps")));
     }
 
     void validate(WizardDescriptor d) throws WizardValidationException {
-
+        System.out.println("test");
     }
 
     // Implementation of DocumentListener --------------------------------------
     @Override
     public void changedUpdate(DocumentEvent e) {
         updateTexts(e);
+        if (this.templateIdTextField.getDocument() == e.getDocument()) {
+            firePropertyChange(PROP_TEMPLATE_ID, null, this.templateIdTextField.getText());
+        }
     }
 
     @Override
     public void insertUpdate(DocumentEvent e) {
         updateTexts(e);
+        if (this.templateIdTextField.getDocument() == e.getDocument()) {
+            firePropertyChange(PROP_TEMPLATE_ID, null, this.templateIdTextField.getText());
+        }
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
         updateTexts(e);
+        if (this.templateIdTextField.getDocument() == e.getDocument()) {
+            firePropertyChange(PROP_TEMPLATE_ID, null, this.templateIdTextField.getText());
+        }
     }
 
     /** Handles changes in the Project name and project directory, */
     private void updateTexts(DocumentEvent e) {
 
+//        Document doc = e.getDocument();
+
+//        if (doc == templateIdTextField.getDocument() || doc == icon48TextField.getDocument()) {
+//            // Change in the project name
+//
+//            String  = templateIdTextField.getText();
+//            String projectFolder = icon48TextField.getText();
+//
+//
+//
+//        }
+        panel.fireChangeEvent(); // Notify that the panel changed
     }
+    
 }
